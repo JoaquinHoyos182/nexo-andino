@@ -22,18 +22,34 @@ function renderTabla(lista) {
 
 function mostrarNotificacion(mensaje) {
     const alerta = document.getElementById("notificacion");
-    alerta.textContent = mensaje;
-    alerta.classList.remove("d-none");
+    const texto = document.getElementById("notificacion-text");
+    if (!alerta) return;
+    if (texto) texto.textContent = mensaje;
+    alerta.classList.remove("d-none", "hiding");
+    alerta.classList.add("showing");
 
     setTimeout(() => {
-        alerta.classList.add("d-none");
+        alerta.classList.remove("showing");
+        alerta.classList.add("hiding");
+        // esconder definitivamente tras la animación
+        setTimeout(() => alerta.classList.add("d-none"), 300);
     }, 4000);
+}
+
+function updateBadges(total, activos) {
+    const bt = document.getElementById('badge-total');
+    const ba = document.getElementById('badge-activos');
+    if (bt) bt.textContent = total;
+    if (ba) ba.textContent = activos;
 }
 
 // Simulación de llegada de nuevos eventos
 async function iniciarSimulacion() {
     let datos = await cargarDatos();
     renderTabla(datos);
+    // inicializar contadores
+    let activos = 0;
+    updateBadges(datos.length, activos);
 
     setInterval(async () => {
         // simular nueva somnolencia cada cierto tiempo
@@ -46,9 +62,12 @@ async function iniciarSimulacion() {
         };
 
         datos.push(nuevasSomnolencias);
+        // actualizar tabla y contadores
         renderTabla(datos);
+        activos += 1;
+        updateBadges(datos.length, activos);
 
-        mostrarNotificacion("⚠️ Se ha detectado una somnolencia");
+        mostrarNotificacion("Se ha detectado una somnolencia");
 
     }, 8000); // cada 8 segundos
 }
