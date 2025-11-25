@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Tracking de Camiones</title>
+
+    <link rel="stylesheet" href="/static/css/styles.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+
+    <!-- MAPLIBRE -->
+    <link href="https://unpkg.com/maplibre-gl@3.6.1/dist/maplibre-gl.css" rel="stylesheet" />
+</head>
+
+<body class="bg-light">
+
+    <!-- NAV -->
+    <nav class="navbar navbar-dark bg-dark">
+        <div class="container-fluid">
+            <span class="navbar-brand fw-bold">Nexo Andino</span>
+
+            <ul class="navbar-nav flex-row gap-3">
+                <li class="nav-item"><a class="nav-link text-white" href="/Frontend/Templates/index.html">Inicio</a></li>
+                <li class="nav-item"><a class="nav-link text-white" href="/Frontend/Templates/somnolencias.html">Somnolencias</a></li>
+                <li class="nav-item"><a class="nav-link text-info fw-semibold" href="/Frontend/Templates/tracking.html">
+                    Tracking <i class="bi bi-map"></i>
+                </a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- CONTENIDO -->
+    <div class="container mt-4">
+
+        <div class="d-flex justify-content-between align-items-center mb-3">
+            <div>
+                <h2 class="mb-0">Tracking de Camiones</h2>
+                <small class="text-muted">Simulación de movimiento en tiempo real</small>
+            </div>
+        </div>
+
+        <!-- TARJETAS DE ESTADO -->
+        <div class="row mb-4">
+
+            <div class="col-md-4">
+                <div class="card shadow-sm border-success">
+                    <div class="card-body text-center">
+                        <h5 class="text-success"><i class="bi bi-truck"></i> Activos</h5>
+                        <h2 id="card-activos" class="fw-bold">0</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-sm border-secondary">
+                    <div class="card-body text-center">
+                        <h5 class="text-secondary"><i class="bi bi-pause-circle"></i> Detenidos</h5>
+                        <h2 id="card-detenidos" class="fw-bold">0</h2>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-md-4">
+                <div class="card shadow-sm border-danger">
+                    <div class="card-body text-center">
+                        <h5 class="text-danger"><i class="bi bi-exclamation-octagon"></i> Alertas</h5>
+                        <h2 id="card-alertas" class="fw-bold">0</h2>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- MAPA -->
+        <div id="mapa" style="height: 420px;" class="rounded shadow-sm mb-4"></div>
+
+        <!-- TIMELINE -->
+        <div class="card shadow-sm">
+            <div class="card-body">
+                <h5><i class="bi bi-clock-history text-primary"></i> Línea de Eventos</h5>
+                <ul id="timeline" class="list-group mt-3">
+                    <!-- eventos en tiempo real -->
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- MAPLIBRE JS -->
+    <script src="https://unpkg.com/maplibre-gl@3.6.1/dist/maplibre-gl.js"></script>
+
+    <!-- TU SCRIPT -->
+    <script src="/Frontend/static/js/tracking.js"></script>
+
+</body>
+</html>
