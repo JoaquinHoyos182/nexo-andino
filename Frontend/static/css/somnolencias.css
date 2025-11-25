@@ -1,0 +1,21 @@
+#notificacion {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 9999;
+
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.35s ease, transform 0.35s ease;
+	    cursor:pointer;
+        }
+
+        #notificacion.showing {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        #notificacion.hiding {
+            opacity: 0;
+            transform: translateY(20px);
+        }

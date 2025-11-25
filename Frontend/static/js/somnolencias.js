@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 async function cargarDatos() {
     const res = await fetch("../static/data/somnolencias.json");
     const datos = await res.json();
@@ -73,3 +74,88 @@ async function iniciarSimulacion() {
 }
 
 iniciarSimulacion();
+=======
+async function cargarDatos() {
+    const res = await fetch("http://localhost:8080/somnolencias");
+    const datos = await res.json();
+    return datos;
+}
+
+async function renderTabla() {
+    const lista = await cargarDatos();
+    const tabla = document.getElementById("tabla-somnolencias");
+    tabla.innerHTML = "";
+
+    lista.forEach(evento => {
+        const fila = `
+            <tr>
+                <td>${evento.id}</td>
+                <td>${evento.patente}</td>
+                <td>${evento.fecha_hora}</td>
+            </tr>
+        `;
+        tabla.innerHTML += fila;
+    });
+    cantSomnolencias = lista.length;
+    setBadges(cantSomnolencias);
+}
+
+var cantSomnolencias = 0;
+
+function setBadges(cantSomnolencias){
+    const bt = document.getElementById('badge-total');
+    if (bt) bt.textContent = cantSomnolencias;
+}
+
+function mostrarNotificacion(mensaje) {
+    const alerta = document.getElementById("notificacion");
+    const texto = document.getElementById("notificacion-text");
+    if (!alerta) return;
+    if (texto) texto.textContent = mensaje;
+    alerta.classList.remove("d-none", "hiding");
+    alerta.classList.add("showing");
+
+    setTimeout(() => {
+        alerta.classList.remove("showing");
+        alerta.classList.add("hiding");
+        // esconder definitivamente tras la animación
+        setTimeout(() => alerta.classList.add("d-none"), 300);
+    }, 4000);
+}
+
+let stompClient = null;
+
+function conectarWebSocket() {
+    const canalws = new SockJS("http://localhost:8080/somnolenciaAlert");
+    stompClient = Stomp.over(canalws);
+
+    stompClient.connect({}, frame => {
+        stompClient.subscribe("/topic/somnolenciaAlert", mensaje => {
+	    console.log("Somnolencia recibida");
+            const somnolencia = JSON.parse(mensaje.body);
+            agregarFila(somnolencia);
+            mostrarNotificacion("Se ha detectado una somnolencia");
+	    cantSomnolencias++;
+            setBadges(cantSomnolencias);
+        });
+    }, () => {
+        setTimeout(conectarWebSocket, 3000);
+    });
+
+function agregarFila(somnolencia) {
+    const tabla = document.getElementById("tabla-somnolencias");
+    const fila = document.createElement("tr");
+    fila.innerHTML = `
+        <td>${somnolencia.id}</td>
+        <td>${somnolencia.patente}</td>
+        <td>${somnolencia.fecha_hora}</td>
+    `;
+
+    tabla.prepend(fila);
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    conectarWebSocket();
+    renderTabla();
+});
+>>>>>>> 59f72 (Conexion con el backend por websocket)
