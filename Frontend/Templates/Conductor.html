@@ -1,0 +1,352 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexo Andino - Monitoreo General</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+/* --- Variables de Estilo --- */
+:root {
+    --header-bg: #E8ECF4;
+    --nav-bg: #1168ff; /* Azul primario fuerte */
+    --button-main: #1168ff;
+    --text-dark: #1168ff;
+    --bg-main: #F0F2F5; /* Fondo general grisáceo claro */
+
+    /* Nuevas variables para esta vista */
+    --card-bg: #FFFFFF;
+    --card-border: #c7e0ff;
+    --shadow-light: rgba(0, 108, 255, 0.1);
+}
+
+/* --- Estilos Globales --- */
+body {
+    font-family: sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: var(--bg-main);
+}
+
+/* --- Header --- */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: var(--header-bg);
+    border-bottom: 1px solid #ccc;
+}
+
+.branding {
+    display: flex;
+    align-items: center;
+}
+
+.logo-image {
+    width: 50px; 
+    height: 50px; 
+    margin-right: 15px;
+    object-fit: contain; 
+}
+
+.branding h1 {
+    margin: 0;
+    font-size: 1.2rem;
+    color: var(--text-dark);
+}
+
+.branding p {
+    margin: 0;
+    font-size: 0.9rem;
+    color: #666;
+}
+
+.user-controls {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-weight: bold;
+}
+
+.btn-logout {
+    background-color: var(--button-main);
+    color: white;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* --- Navigation --- */
+.navbar {
+    background-color: var(--nav-bg);
+    padding: 10px 0;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: space-around; 
+    gap: 15px;
+    padding: 0 20px;
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    padding: 5px 10px; 
+    display: block;
+}
+
+.emergency-link {
+    font-size: 1.1rem;
+    padding: 8px 15px;
+    border-radius: 4px;
+    background-color: rgba(255, 255, 255, 0.1); 
+    transition: background-color 0.3s;
+}
+
+.emergency-link:hover {
+    background-color: rgba(255, 255, 255, 0.3); 
+}
+
+
+/* --- Contenedor Principal de la Página de Monitoreo --- */
+.monitoreo-container {
+    width: 95%;
+    max-width: 1200px;
+    margin: 20px auto;
+    display: flex;
+    gap: 20px;
+}
+
+/* --- Contenedor del Mapa --- */
+.map-full-width {
+    flex: 3;
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    box-shadow: 0 5px 30px var(--shadow-light);
+    height: 600px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: #666;
+    font-weight: bold;
+    position: relative;
+}
+
+.map-placeholder-content {
+    text-align: center;
+    color: var(--text-dark);
+    font-size: 1.1rem;
+}
+
+.map-placeholder-content i {
+    font-size: 3em;
+    margin-bottom: 10px;
+    color: #a7d3ff;
+}
+
+/* --- Barra Lateral de Información (Cards) --- */
+.sidebar-cards {
+    flex: 2;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.info-card {
+    background-color: var(--card-bg);
+    border: 1px solid var(--card-border);
+    border-radius: 12px;
+    box-shadow: 0 5px 30px var(--shadow-light);
+    padding: 20px;
+}
+
+/* Estilos para la tarjeta de Velocidad Recomendada */
+.speed-card {
+    text-align: center;
+}
+
+.speed-card h3 {
+    margin-top: 0;
+    color: #333;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.speed-gauge {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.gauge-icon {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    background: radial-gradient(circle at center, #f0f8ff 50%, #e0f2ff 100%);
+    border: 3px solid #6cbaff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+}
+
+.gauge-icon::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 60%;
+    height: 3px;
+    background-color: #f75c40; 
+    transform-origin: 0% 50%;
+    transform: rotate(45deg); 
+    border-radius: 2px;
+}
+
+.gauge-text {
+    font-size: 3.5rem;
+    font-weight: bold;
+    color: var(--text-dark);
+    line-height: 1;
+}
+
+.gauge-text small {
+    display: block;
+    font-size: 0.9rem;
+    font-weight: normal;
+    color: #666;
+    margin-top: 5px;
+}
+
+/* Estilos para la tarjeta de Avisos */
+.avisos-card h3 {
+    margin-top: 0;
+    color: var(--text-dark);
+    font-size: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.avisos-card ul {
+    list-style: none;
+    padding: 0;
+    margin-top: 15px;
+}
+
+.avisos-card li {
+    font-size: 0.95rem;
+    color: #555;
+    margin-bottom: 8px;
+    position: relative;
+    padding-left: 15px;
+}
+
+.avisos-card li::before {
+    content: '•';
+    color: var(--text-dark);
+    font-size: 1.2em;
+    position: absolute;
+    left: 0;
+    top: -2px;
+}
+
+
+/* Estilo para la imagen de logo reemplazando el sidebar-logo */
+.logo-sidebar-container {
+    text-align: center;
+    padding: 10px 0;
+}
+.logo-sidebar-container img {
+    width: 250px;
+    height: auto;
+    object-fit: contain;
+}
+</style>
+
+</head>
+<body class="bg-light">
+<header class="header">
+    <div class="branding">
+        <img src="/imagenes/inicio.jpg" alt="Logo Nexo Andino" class="logo-image">
+        <div>
+            <h1>NEXO ANDINO</h1>
+            <p>Corredor Bioceanico Capricornio</p>
+        </div>
+    </div>
+    <div class="user-controls">
+        <div class="user-info">
+            <i class="fa-regular fa-circle-user fa-2x"></i>
+            <span>usuario</span>
+        </div>
+        <button class="btn-logout">Cerrar sesión</button>
+    </div>
+</header>
+
+<nav class="navbar">
+    <ul>
+        <li><a href="tel:911" class="emergency-link">📞 EMERGENCIA (911)</a></li>
+        <li><a href="tel:107" class="emergency-link">🚑 SAME (107)</a></li>
+        <li><a href="tel:100" class="emergency-link">🔥 BOMBEROS (100)</a></li>
+        <li><a href="tel:103" class="emergency-link">🛡️ DEFENSA CIVIL (103)</a></li>
+    </ul>
+</nav>
+
+<main class="monitoreo-container">
+    <div class="map-full-width">
+        <div class="map-placeholder-content">
+            <i class="fa-solid fa-truck-moving"></i>
+            <span>MAPA DE RECORRIDO</span>
+            <span>EN TIEMPO REAL</span>
+        </div>
+    </div>
+
+    <div class="sidebar-cards">
+        <div class="info-card speed-card">
+            <h3>VELOCIDAD RECOMENDADA</h3>
+            <div class="speed-gauge">
+                <div class="gauge-icon"></div>
+                <div class="gauge-text">
+                    80
+                    <small>km/h</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="info-card avisos-card">
+            <h3><i class="fa-solid fa-bell"></i> AVISOS</h3>
+            <ul>
+                <li>Desvío por obras</li>
+                <li>Clima extremo adednde</li>
+                <li>Paso habilitado</li>
+            </ul>
+        </div>
+
+        <div class="logo-sidebar-container">
+            <img src="/imagenes/LogoC.jpg" alt="Logo Nexo Andino" class="logo-image">
+        </div>
+    </div>
+</main>
+</body>
+</html>
