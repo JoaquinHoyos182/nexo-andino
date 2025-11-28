@@ -229,12 +229,48 @@
     </div>
 
     <div class="charts-grid">
-        <div class="chart-card">GRÁFICO 1</div>
-        <div class="chart-card">GRÁFICO 2</div>
-        <div class="chart-card">GRÁFICO 3</div>
-        <div class="chart-card">GRÁFICO 4</div>
+       <div class="chart-card"><canvas id="chart1"></canvas></div>
+        <div class="chart-card"><canvas id="chart2"></canvas></div>
+        <div class="chart-card"><canvas id="chart3"></canvas></div>
+        <div class="chart-card"><canvas id="chart4"></canvas></div>
+
     </div>
 </main>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const makeChart = (id, label, color, min=0, max=100) => {
+        const ctx = document.getElementById(id);
+        new Chart(ctx, {
+            type: "line",
+            data: {
+                labels: ["1","2","3","4","5","6","7","8","9","10"],
+                datasets: [{
+                    label: label,
+                    data: Array.from({length: 10}, () => Math.floor(Math.random()*(max-min)+min)),
+                    borderColor: color,
+                    backgroundColor: color + "33",
+                    borderWidth: 2,
+                    tension: 0.3
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    };
+
+    makeChart("chart1", "Velocidad (km/h)", "#1168ff", 20, 110);
+    makeChart("chart2", "RPM", "#ff5733", 400, 1500);
+    makeChart("chart3", "Temperatura Motor", "#ffc300", 60, 120);
+    makeChart("chart4", "Vibración (m/s²)", "#28a745", 0, 20);
+
+});
+</script>
+
+
 </body>
 
 </html>
