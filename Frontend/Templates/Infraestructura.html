@@ -283,12 +283,51 @@
     <h3 class="charts-title">GRÁFICOS DE LECTURAS DE LOS SENSORES</h3>
 
     <div class="charts-grid">
-        <div class="chart-card">GRÁFICO 1</div>
-        <div class="chart-card">GRÁFICO 2</div>
-        <div class="chart-card">GRÁFICO 3</div>
-        <div class="chart-card">GRÁFICO 4</div>
+<div class="chart-card"><canvas id="infra1"></canvas></div>
+<div class="chart-card"><canvas id="infra2"></canvas></div>
+<div class="chart-card"><canvas id="infra3"></canvas></div>
+<div class="chart-card"><canvas id="infra4"></canvas></div>
+
     </div>
 </main>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+
+    const sensorChart = (id, label, color) => {
+        new Chart(document.getElementById(id), {
+            type: "bar",
+            data: {
+                labels: ["Sensor A","Sensor B","Sensor C","Sensor D"],
+                datasets: [{
+                    label,
+                    data: [
+                        Math.random()*100,
+                        Math.random()*100,
+                        Math.random()*100,
+                        Math.random()*100
+                    ],
+                    backgroundColor: [color+"AA", color+"AA", color+"AA", color+"AA"],
+                    borderColor: color,
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false
+            }
+        });
+    };
+
+    sensorChart("infra1", "Vibración Estructural", "#1168ff");
+    sensorChart("infra2", "Tensión (kN)", "#ff5733");
+    sensorChart("infra3", "Temperatura (°C)", "#ffc300");
+    sensorChart("infra4", "Flujo Vehicular", "#28a745");
+
+});
+</script>
+
+
 </body>
 
 </html>
