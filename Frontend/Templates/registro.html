@@ -8,82 +8,65 @@
 
 <style>
 :root {
-            --header-bg: #E8ECF4;
-            --nav-bg: #1168ff;
-            --button-orange: #1168ff;
-            --text-dark: #1168ff;
-            --bg-main: #F0F2F5;
-        }
+    /* Variables del Código 1 */
+    --nav-bg: #1168ff; 
+    --button-main: #1168ff;
+    --text-dark: #1168ff; 
+    --bg-main: #F0F2F5; 
+}
 
         body {
             font-family: sans-serif;
             margin: 0;
             padding: 0;
-            background-color: var(--bg-main);
+            /* ---------------------------------------------------- */
+            /* --- FONDO DE PÁGINA COPIADO (corredor.jpg) --- */
+            /* ---------------------------------------------------- */
+            background-color: #FFFFFF; /* Color de respaldo */
+            background-image: url('/imagenes/corredor.jpg'); 
+            background-size: cover; 
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed; 
         }
 
-        /* --- Header --- */
-        .header {
-            display: flex;
-            justify-content: space-between;
+        /* ---------------------------------------------------- */
+        /* --- NAVIGATION (Barra Azul, Copiada de Código 1) --- */
+        /* ---------------------------------------------------- */
+        .navbar {
+            background-color: var(--nav-bg);
+            padding: 5px 20px; 
+            display: flex; 
+            justify-content: space-between; 
             align-items: center;
-            padding: 10px 20px;
-            background-color: var(--header-bg);
-            border-bottom: 1px solid #ccc;
+            flex-shrink: 0; 
         }
-
+        
         .branding {
             display: flex;
             align-items: center;
+            flex-shrink: 0; 
+            color: white; 
         }
 
         .logo-image {
-        /* Ajusta el tamaño para que sea similar al icono anterior */
-        width: 50px; /* Ajusta según el tamaño deseado */
-        height: 50px; /* Ajusta según el tamaño deseado */
-        margin-right: 15px;
-        object-fit: contain; /* Asegura que la imagen se vea completa */
+            width: 50px; 
+            height: 50px; 
+            margin-right: 10px;
+            object-fit: contain;
         }
 
         .branding h1 {
             margin: 0;
             font-size: 1.2rem;
-            color: var(--text-dark);
+            color: white; 
         }
 
         .branding p {
             margin: 0;
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        .user-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-weight: bold;
-        }
-
-        .btn-logout {
-            background-color: var(--button-orange);
+            font-size: 0.7rem; 
             color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        /* --- Navigation --- */
-        .navbar {
-            background-color: var(--nav-bg);
-            padding: 10px 0;
+            white-space: nowrap;
         }
 
         .navbar ul {
@@ -92,21 +75,82 @@
             padding: 0;
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 10px; 
+            flex-grow: 1; 
+        }
+
+        .navbar li {
+            padding: 0 5px; 
         }
 
         .navbar a {
             text-decoration: none;
             color: white;
-            font-weight: bold;
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 5px 10px; 
+            font-weight: 600; 
+        }
+
+        .navbar i {
+            font-size: 1.6rem; 
+            margin-bottom: 3px;
+            color: white;
+        }
+        
+        .navbar span {
+            font-size: 0.8rem; 
+            font-weight: 600;
+            white-space: nowrap; 
         }
 
         .navbar a.active {
-        background-color: rgba(255, 255, 255, 0.2); /* Sutil indicador de la página actual */
-        border-radius: 4px;
+            background-color: #FFFFFF; 
+            color: var(--nav-bg); 
+            border-radius: 4px;
         }
 
-        /* --- Main Content Layout --- */
+        .navbar a.active i {
+            color: var(--nav-bg);
+        }
+        
+        .user-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+            color: white; 
+        }
+        
+        .user-info i {
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .user-info span {
+            font-size: 0.9rem;
+        }
+
+        .btn-logout {
+            background-color: rgba(255, 255, 255, 0.2); 
+            color: white;
+            border: 1px solid white; 
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+
+        /* --- Main Content Layout (MANTENEMOS ESTILOS DEL CÓDIGO 2) --- */
         .main-container {
             display: flex;
             padding: 0px;
@@ -114,12 +158,10 @@
             max-width: 100%;
             justify-content: center; 
             align-items: center; 
-            min-height: calc(100vh - 80px); /* Ocupa casi toda la altura visible */
+            min-height: calc(100vh - 80px); 
             margin: 0 auto;
         }
 
-
-        /* Right Column (Sidebar cards) */
         .sidebar {
             width: 90%;
             max-width: 900px;
@@ -130,20 +172,17 @@
         }
 
         .card {
-            background-color: var(--bg-main); /* Color azul grisáceo claro de las cajas laterales */
+            /* Hacemos la tarjeta ligeramente transparente para que se vea el fondo */
+            background-color: rgba(255, 255, 255, 0.95);
             padding: 40px;
             border-radius: 12px;
-            border: 1px solid #5abff2;
+            border: 1px solid #c7e0ff; /* Ajustado de 5abff2 para ser más consistente con el azul de nav */
             box-shadow: 0 5px 30px rgba(0,0,0,0.1);
             text-align: center;
         }
 
-
-
-
-
         .card .btn-action {
-            background-color: var(--button-orange);
+            background-color: var(--button-main); /* Usamos --button-main del Código 1 */
             color: white;
             border: none;
             padding: 8px 25px;
@@ -153,79 +192,76 @@
         }
 
         .registration-form {
-    text-align: left; /* Alinea el texto a la izquierda dentro de la tarjeta */
-}
+            text-align: left; 
+        }
 
-.form-section {
-    border: 2px solid #72c3f6; /* Borde sutil para separar secciones */
-    padding: 15px;
-    border-radius: 8px;
-    margin-bottom: 15px;
-    background-color: #fff; /* Fondo blanco para las secciones internas */
-}
+        .form-section {
+            border: 2px solid #72c3f6; 
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            background-color: #fff; 
+        }
 
-.form-section h3 {
-    font-size: 1.1rem;
-    color: var(--nav-bg); /* Color azul primario para el título de la sección */
-    border-bottom: 2px solid var(--header-bg);
-    padding-bottom: 5px;
-    margin-top: 0;
-    margin-bottom: 6px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
+        .form-section h3 {
+            font-size: 1.1rem;
+            color: var(--nav-bg); 
+            border-bottom: 2px solid var(--bg-main); /* Usamos bg-main como color secundario */
+            padding-bottom: 5px;
+            margin-top: 0;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
 
-.registration-form label {
-    display: block;
-    font-weight: bold;
-    margin-top: 6px;
-    margin-bottom: 3px;
-    font-size: 0.95em;
-    color: #333;
-}
+        .registration-form label {
+            display: block;
+            font-weight: bold;
+            margin-top: 6px;
+            margin-bottom: 3px;
+            font-size: 0.95em;
+            color: #333;
+        }
 
-/* Estilo para todos los inputs de texto y número */
-.registration-form input[type="text"], 
-.registration-form input[type="number"], 
-.registration-form input[type="date"] {
-    width: 95%; /* Ajusta el ancho para dejar espacio para el padding */
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    box-sizing: border-box; /* Asegura que padding no afecte el ancho total */
-}
+        .registration-form input[type="text"], 
+        .registration-form input[type="number"], 
+        .registration-form input[type="date"] {
+            width: 95%; 
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            box-sizing: border-box; 
+        }
 
-/* Estilo específico para inputs de archivo (subir documentos) */
-.registration-form input[type="file"] {
-    width: 95%;
-    padding: 5px 0;
-    margin-bottom: 5px;
-    font-size: 0.9em;
-}
+        .registration-form input[type="file"] {
+            width: 95%;
+            padding: 5px 0;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
 
-/* Estilo para los datos de trazabilidad (no son inputs) */
-.data-display {
-    background-color: #e6ffec; /* Fondo verde claro para datos "vivos" */
-    padding: 8px;
-    border-radius: 4px;
-    font-family: monospace;
-    font-size: 0.9em;
-    color: #008000;
-    margin-top: 5px;
-}
+        .data-display {
+            background-color: #e6ffec; 
+            padding: 8px;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 0.9em;
+            color: #008000;
+            margin-top: 5px;
+        }
 
-/* Botón de registro al final */
-.full-width-btn {
-    width: 100%;
-    margin-top: 20px;
-    padding: 12px 0;
-    font-size: 1.1rem;
-}
+        .full-width-btn {
+            width: 100%;
+            margin-top: 20px;
+            padding: 12px 0;
+            font-size: 1.1rem;
+        }
     </style>
 </head>
 <body class="bg-light">
-<header class="header">
+
+    <nav class="navbar">
         <div class="branding">
             <img src="/imagenes/inicio.jpg" alt="Logo Nexo Andino" class="logo-image">
             <div>
@@ -233,102 +269,99 @@
                 <p>Corredor Bioceanico Capricornio</p>
             </div>
         </div>
+        
+        <ul>
+            <li><a href="/Frontend/Templates/monitoreo.html"><i class="fa-solid fa-desktop"></i><span>Monitoreo</span></a></li>
+            <li><a href="/Frontend/Templates/registro.html" class="active"><i class="fa-solid fa-truck-moving"></i><span>Registrar camion</span></a></li>
+            <li><a href="/Frontend/Templates/Infraestructura.html"><i class="fa-solid fa-city"></i><span>Infraestructura</span></a></li>
+            <li><a href="/Frontend/Templates/aviso.html"><i class="fa-solid fa-triangle-exclamation"></i><span>Enviar aviso</span></a></li>
+            <li><a href="/Frontend/Templates/somnolencias.html"><i class="fa-solid fa-eye"></i><span>Reportes Somnolencias</span></a></li>
+        </ul>
+
         <div class="user-controls">
             <div class="user-info">
-                <i class="fa-regular fa-circle-user fa-2x"></i>
-                <span>usuario</span>
+                <i class="fa-regular fa-circle-user"></i> <span>usuario</span>
             </div>
             <button class="btn-logout">Cerrar sesión</button>
         </div>
-    </header>
-
-    <nav class="navbar">
-        <ul>
-            <li><a href="/Frontend/Templates/monitoreo.html">Monitoreo</a></li>
-            <li><a href="/Frontend/Templates/registro.html"class="active">Registrar camion</a></li>
-            <li><a href="/Frontend/Templates/Infraestructura.html">Infraestructura</a></li>
-            <li><a href="/Frontend/Templates/aviso.html">Enviar aviso</a></li>
-            <li><a href="/Frontend/Templates/somnolencias.html">Reportes Somnolencias</a></li>
-        </ul>
     </nav>
-
     <main class="main-container">
-   <aside class="sidebar">
-    <div class="card registration-form">
-        <h2 style="color: var(--text-dark); margin-bottom: 20px;">Registro de Camión para Tránsito por la provincia de Jujuy</h2>
+        <aside class="sidebar">
+            <div class="card registration-form">
+                <h2 style="color: var(--text-dark); margin-bottom: 20px;">Registro de Camión para Tránsito por la provincia de Jujuy</h2>
 
-        <form action="/registrar" method="POST" enctype="multipart/form-data">
-            
-            <div class="form-section">
-                <h3><i class="fa-solid fa-box"></i> Documentación de Carga</h3>
-                <label for="manifiesto">Manifiesto Internacional de Carga (MIC):</label>
-                <input type="file" id="manifiesto" name="manifiesto" required>
-                
-                <label for="dta">Declaración de Tránsito Aduanero (DTA):</label>
-                <input type="file" id="dta" name="dta" required>
-                
-                <label for="factura">Factura Comercial:</label>
-                <input type="file" id="factura" name="factura" required>
-                
-                <label for="certificado_origen">Certificado de Origen:</label>
-                <input type="file" id="certificado_origen" name="certificado_origen" required>
-                
-                <label for="poliza_seguro_carga">Póliza de Seguro de Carga:</label>
-                <input type="file" id="poliza_seguro_carga" name="poliza_seguro_carga" required>
+                <form action="/registrar" method="POST" enctype="multipart/form-data">
+                    
+                    <div class="form-section">
+                        <h3><i class="fa-solid fa-box"></i> Documentación de Carga</h3>
+                        <label for="manifiesto">Manifiesto Internacional de Carga (MIC):</label>
+                        <input type="file" id="manifiesto" name="manifiesto" required>
+                        
+                        <label for="dta">Declaración de Tránsito Aduanero (DTA):</label>
+                        <input type="file" id="dta" name="dta" required>
+                        
+                        <label for="factura">Factura Comercial:</label>
+                        <input type="file" id="factura" name="factura" required>
+                        
+                        <label for="certificado_origen">Certificado de Origen:</label>
+                        <input type="file" id="certificado_origen" name="certificado_origen" required>
+                        
+                        <label for="poliza_seguro_carga">Póliza de Seguro de Carga:</label>
+                        <input type="file" id="poliza_seguro_carga" name="poliza_seguro_carga" required>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3><i class="fa-solid fa-truck-fast"></i> Documentación del Vehículo</h3>
+                        <label for="permiso_internacional">Permiso Internacional de Transporte (PIT):</label>
+                        <input type="file" id="permiso_internacional" name="permiso_internacional" required>
+                        
+                        <label for="titulo_propiedad">Título de Propiedad del Vehículo:</label>
+                        <input type="file" id="titulo_propiedad" name="titulo_propiedad" required>
+                        
+                        <label for="matricula">Matrícula del Camión:</label>
+                        <input type="text" id="matricula" name="matricula" placeholder="Ej: AZ-123-BC" required>
+                        
+                        <label for="peso_maximo">Peso Máximo Permitido (kg):</label>
+                        <input type="number" id="peso_maximo" name="peso_maximo" placeholder="Ej: 45000" required>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3><i class="fa-solid fa-user-tie"></i> Documentación del Conductor</h3>
+                        <label for="nombre_apellido">Nombre y Apellido:</label>
+                        <input type="text" id="nombre_apellido" name="nombre_apellido" required>
+                        
+                        <label for="dni">DNI / Cédula de Identidad:</label>
+                        <input type="text" id="dni" name="dni" required>
+                        
+                        <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
+                        <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
+                        
+                        <label for="nacionalidad">Nacionalidad:</label>
+                        <input type="text" id="nacionalidad" name="nacionalidad" required>
+                        
+                        <label for="licencia">Licencia de Conducir:</label>
+                        <input type="file" id="licencia" name="licencia" required>
+                        
+                        <label for="seguro_vida">Seguro de Vida:</label>
+                        <input type="file" id="seguro_vida" name="seguro_vida" required>
+                        
+                        <label for="aptitud_fisica">Certificado de Aptitud Física y Mental:</label>
+                        <input type="file" id="aptitud_fisica" name="aptitud_fisica" required>
+                    </div>
+                    
+                    <div class="form-section">
+                        <h3><i class="fa-solid fa-satellite-dish"></i> Monitoreo y Trazabilidad</h3>
+                        <label>Datos GPS (IMEI / ID de Dispositivo):</label>
+                        <p class="data-display"> 359876012345678 (Conectado)</p>
+                        
+                        <label>Datos del Sensor a Bordo:</label>
+                        <p class="data-display">Temperatura: 90°C, Estado Motor: OK</p>
+                    </div>
+                    
+                    <button type="submit" class="btn-action full-width-btn">Registrar Camión</button>
+                </form>
             </div>
-            
-            <div class="form-section">
-                <h3><i class="fa-solid fa-truck-fast"></i> Documentación del Vehículo</h3>
-                <label for="permiso_internacional">Permiso Internacional de Transporte (PIT):</label>
-                <input type="file" id="permiso_internacional" name="permiso_internacional" required>
-                
-                <label for="titulo_propiedad">Título de Propiedad del Vehículo:</label>
-                <input type="file" id="titulo_propiedad" name="titulo_propiedad" required>
-                
-                <label for="matricula">Matrícula del Camión:</label>
-                <input type="text" id="matricula" name="matricula" placeholder="Ej: AZ-123-BC" required>
-                
-                <label for="peso_maximo">Peso Máximo Permitido (kg):</label>
-                <input type="number" id="peso_maximo" name="peso_maximo" placeholder="Ej: 45000" required>
-            </div>
-            
-            <div class="form-section">
-                <h3><i class="fa-solid fa-user-tie"></i> Documentación del Conductor</h3>
-                <label for="nombre_apellido">Nombre y Apellido:</label>
-                <input type="text" id="nombre_apellido" name="nombre_apellido" required>
-                
-                <label for="dni">DNI / Cédula de Identidad:</label>
-                <input type="text" id="dni" name="dni" required>
-                
-                <label for="fecha_nacimiento">Fecha de Nacimiento:</label>
-                <input type="date" id="fecha_nacimiento" name="fecha_nacimiento" required>
-                
-                <label for="nacionalidad">Nacionalidad:</label>
-                <input type="text" id="nacionalidad" name="nacionalidad" required>
-                
-                <label for="licencia">Licencia de Conducir:</label>
-                <input type="file" id="licencia" name="licencia" required>
-                
-                <label for="seguro_vida">Seguro de Vida:</label>
-                <input type="file" id="seguro_vida" name="seguro_vida" required>
-                
-                <label for="aptitud_fisica">Certificado de Aptitud Física y Mental:</label>
-                <input type="file" id="aptitud_fisica" name="aptitud_fisica" required>
-            </div>
-            
-            <div class="form-section">
-                <h3><i class="fa-solid fa-satellite-dish"></i> Monitoreo y Trazabilidad</h3>
-                <label>Datos GPS (IMEI / ID de Dispositivo):</label>
-                <p class="data-display"> 359876012345678 (Conectado)</p>
-                
-                <label>Datos del Sensor a Bordo:</label>
-                <p class="data-display">Temperatura: 90°C, Estado Motor: OK</p>
-            </div>
-            
-            <button type="submit" class="btn-action full-width-btn">Registrar Camión</button>
-        </form>
-    </div>
-</aside>
+        </aside>
     </main>
 
 </body>

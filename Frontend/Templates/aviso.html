@@ -8,82 +8,68 @@
 
 <style>
 :root {
-            --header-bg: #E8ECF4;
-            --nav-bg: #1168ff;
-            --button-main: #1168ff;
-            --text-dark: #1168ff;
-            --bg-main: #F0F2F5;
-        }
+    /* Variables tomadas del código de infraestructura */
+    --nav-bg: #1168ff; 
+    --button-main: #1168ff;
+    --text-dark: #1168ff; 
+    --bg-main: #F0F2F5; 
+}
 
         body {
             font-family: sans-serif;
             margin: 0;
             padding: 0;
-            background-color: var(--bg-main);
+            /* ---------------------------------------------------- */
+            /* --- FONDO DE PÁGINA COPIADO (corredor.jpg) --- */
+            /* ---------------------------------------------------- */
+            background-color: #FFFFFF; /* Color de respaldo */
+            /* Nota: Si el path es incorrecto, el color de respaldo se verá */
+            background-image: url('/imagenes/corredor.jpg'); 
+            background-size: cover; 
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed; 
         }
 
-        /* --- Header --- */
-        .header {
-            display: flex;
-            justify-content: space-between;
+        /* ---------------------------------------------------- */
+        /* --- NAVIGATION (Barra Azul, Copiada de Código 1) --- */
+        /* ---------------------------------------------------- */
+        .navbar {
+            background-color: var(--nav-bg);
+            padding: 5px 20px; 
+            display: flex; 
+            justify-content: space-between; 
             align-items: center;
-            padding: 10px 20px;
-            background-color: var(--header-bg);
-            border-bottom: 1px solid #ccc;
+            flex-shrink: 0; 
+            /* Para la navegación superior */
+            border-bottom: none; /* Eliminar el borde del header antiguo */
         }
-
+        
         .branding {
             display: flex;
             align-items: center;
+            flex-shrink: 0; 
+            color: white; 
         }
 
         .logo-image {
-        /* Ajusta el tamaño para que sea similar al icono anterior */
-        width: 50px; /* Ajusta según el tamaño deseado */
-        height: 50px; /* Ajusta según el tamaño deseado */
-        margin-right: 15px;
-        object-fit: contain; /* Asegura que la imagen se vea completa */
+            width: 50px; 
+            height: 50px; 
+            margin-right: 10px;
+            object-fit: contain;
         }
 
         .branding h1 {
             margin: 0;
             font-size: 1.2rem;
-            color: var(--text-dark);
+            color: white; /* Color blanco en la barra azul */
         }
 
         .branding p {
             margin: 0;
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        .user-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-weight: bold;
-        }
-
-        .btn-logout {
-            background-color: var(--button-main);
-            color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        /* --- Navigation --- */
-        .navbar {
-            background-color: var(--nav-bg);
-            padding: 10px 0;
+            font-size: 0.7rem; 
+            color: white; /* Color blanco en la barra azul */
+            white-space: nowrap;
         }
 
         .navbar ul {
@@ -92,20 +78,84 @@
             padding: 0;
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 10px; 
+            flex-grow: 1; 
+        }
+
+        .navbar li {
+            padding: 0 5px; 
         }
 
         .navbar a {
             text-decoration: none;
             color: white;
-            font-weight: bold;
-            padding: 5px 10px;
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 5px 10px; 
+            font-weight: 600; 
+        }
+
+        .navbar i {
+            font-size: 1.6rem; 
+            margin-bottom: 3px;
+            color: white;
+        }
+        
+        .navbar span {
+            font-size: 0.8rem; 
+            font-weight: 600;
+            white-space: nowrap; 
         }
 
         .navbar a.active {
-        background-color: rgba(255, 255, 255, 0.2); /* Sutil indicador de la página actual */
-        border-radius: 4px;
+            background-color: #FFFFFF; 
+            color: var(--nav-bg); 
+            border-radius: 4px;
         }
+
+        .navbar a.active i {
+            color: var(--nav-bg);
+        }
+        
+        .user-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+            color: white; /* Color blanco en la barra azul */
+        }
+        
+        .user-info i {
+            color: white; /* Color blanco en la barra azul */
+            font-size: 2rem;
+        }
+        
+        .user-info span {
+            font-size: 0.9rem;
+        }
+
+        .btn-logout {
+            background-color: rgba(255, 255, 255, 0.2); 
+            color: white;
+            border: 1px solid white; 
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+        /* ---------------------------------------------------- */
+        /* --- FIN DE ESTILOS DE LA BARRA DE NAVEGACIÓN --- */
+        /* ---------------------------------------------------- */
+
 
         /* --- Main Content Layout --- */
         .main-container {
@@ -115,8 +165,8 @@
             max-width: 100%;
             justify-content: center; 
             align-items: center; 
-            align-items: flex-start; /* Alineado arriba para evitar que la tarjeta sea demasiado alta */
-            min-height: calc(100vh - 80px); /* Ocupa casi toda la altura visible */
+            align-items: flex-start; 
+            min-height: calc(100vh - 80px); 
             margin: 0 auto;
         }
 
@@ -132,12 +182,13 @@
         }
 
         .card {
-            background-color: #FFFFFF; /* Fondo blanco para el recuadro */
+            /* Se añade transparencia para ver el fondo */
+            background-color: rgba(255, 255, 255, 0.95); 
             padding: 40px;
             border-radius: 12px;
-            border: 1px solid #c7e0ff; /* Borde azul muy claro */
-            box-shadow: 0 5px 30px rgba(0, 108, 255, 0.1); /* Sombra sutil y azulada */
-            text-align: left; /* Alineamos todo el contenido a la izquierda */
+            border: 1px solid #c7e0ff; 
+            box-shadow: 0 5px 30px rgba(0, 108, 255, 0.1); 
+            text-align: left; 
         }
 
         .card .btn-action {
@@ -155,7 +206,7 @@
             background-color: #004dcc;
         }
         .registration-form {
-            text-align: left; /* Alinea el texto a la izquierda dentro de la tarjeta */
+            text-align: left; 
         }
 
         .form-section {
@@ -166,11 +217,11 @@
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
-            }
+        }
         
         .form-group {
-            flex: 1; /* Ocupa el espacio disponible */
-            min-width: 45%; /* Ancho mínimo para dos columnas */
+            flex: 1; 
+            min-width: 45%; 
             box-sizing: border-box;
         }
     
@@ -195,8 +246,8 @@
 .registration-form input[type="text"],
 .registration-form input[type="datetime-local"],
 .registration-form select {
-    width: 100%; /* Ocupa el 100% del form-group */
-    padding: 8px 10px; /* Reducimos el padding vertical a 8px */
+    width: 100%; 
+    padding: 8px 10px; 
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
@@ -207,20 +258,20 @@
 /* Estilo específico para el textarea (Alto) */
 .registration-form textarea {
     width: 100%;
-    padding: 10px; /* Mantenemos padding normal para legibilidad */
+    padding: 10px; 
     border: 1px solid #ccc;
     border-radius: 4px;
     box-sizing: border-box;
     margin-top: 2px;
     font-size: 1em;
     resize: vertical; 
-    min-height: 150px; /* Mantenemos la altura grande para Causa y Detalle */
+    min-height: 150px; 
 }
 
         .location-group {
             display: flex;
             gap: 10px;
-            align-items: flex-end; /* Alinea las cajas de texto */
+            align-items: flex-end; 
             width: 100%;
         }
     
@@ -233,7 +284,7 @@
 
         .location-group input {
             flex: 1;
-            padding: 8px; /* Ajustado para un mejor aspecto */
+            padding: 8px; 
         }
 
         /* Estilos para el radio group de gravedad */
@@ -269,24 +320,24 @@
 
     /* Estilos del Modal */
 .modal {
-    display: none; /* Oculto por defecto */
-    position: fixed; /* Posición fija en la pantalla */
-    z-index: 1000; /* Siempre encima de todo */
+    display: none; 
+    position: fixed; 
+    z-index: 1000; 
     left: 0;
     top: 0;
     width: 100%;
     height: 100%;
-    overflow: auto; /* Habilita el scroll si es necesario */
-    background-color: rgba(0,0,0,0.4); /* Fondo semi-transparente oscuro */
+    overflow: auto; 
+    background-color: rgba(0,0,0,0.4); 
     padding-top: 50px;
 }
 
 .modal-content {
-    background-color: transparent; /* El contenido no tiene fondo propio */
-    margin: 10% auto; /* 10% desde arriba y centrado */
+    background-color: transparent; 
+    margin: 10% auto; 
     padding: 20px;
     width: 90%; 
-    max-width: 450px; /* Ancho máximo similar a tu imagen */
+    max-width: 450px; 
     position: relative;
 }
 
@@ -311,7 +362,7 @@
 /* Estilo de la tarjeta de confirmación (similar a la imagen de referencia) */
 .confirm-card {
     background-color: #f7f7f7;
-    border: 3px solid #6dd9ff; /* Borde de color azul/cian para el contraste */
+    border: 3px solid #6dd9ff; 
     border-radius: 15px;
     padding: 30px;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
@@ -331,24 +382,7 @@
 
 .status-box {
     display: flex;
-    align-items: center;
-    justify-content: center;
-    margin: 30px 0;
-    padding: 10px;
-}
-
-.status-indicator {
-    height: 25px;
-    width: 25px;
-    border-radius: 50%;
-    display: inline-block;
-    margin-right: 15px;
-}
-
-/* Estilos del indicador de estado */
-.status-box {
-    display: flex;
-    flex-direction: column; /* Apila el título y el valor */
+    flex-direction: column; 
     align-items: center;
     justify-content: center;
     margin: 30px 0;
@@ -371,21 +405,21 @@
 
 /* Nuevas clases para los colores de gravedad */
 .status-indicator.leve {
-    background-color: #5cb85c; /* Verde */
+    background-color: #5cb85c; 
 }
 .status-text.leve {
     color: #5cb85c; 
 }
 
 .status-indicator.moderado {
-    background-color: #ffc107; /* Amarillo */
+    background-color: #ffc107; 
 }
 .status-text.moderado {
     color: #ffc107; 
 }
 
 .status-indicator.grave {
-    background-color: #dc3545; /* Rojo */
+    background-color: #dc3545; 
 }
 .status-text.grave {
     color: #dc3545; 
@@ -394,7 +428,7 @@
 .confirm-btn {
     width: 100%;
     margin-top: 20px;
-    background-color: #ff9955 !important; /* Color naranja similar al de la imagen */
+    background-color: #ff9955 !important; 
     padding: 12px 20px;
     font-size: 1.1rem;
 }
@@ -406,7 +440,7 @@
     </style>
 </head>
 <body class="bg-light">
-<header class="header">
+    <nav class="navbar">
         <div class="branding">
             <img src="/imagenes/inicio.jpg" alt="Logo Nexo Andino" class="logo-image">
             <div>
@@ -414,25 +448,22 @@
                 <p>Corredor Bioceanico Capricornio</p>
             </div>
         </div>
+        
+        <ul>
+            <li><a href="/Frontend/Templates/monitoreo.html"><i class="fa-solid fa-desktop"></i><span>Monitoreo</span></a></li>
+            <li><a href="/Frontend/Templates/registro.html"><i class="fa-solid fa-truck-moving"></i><span>Registrar camion</span></a></li>
+            <li><a href="/Frontend/Templates/Infraestructura.html"><i class="fa-solid fa-city"></i><span>Infraestructura</span></a></li>
+            <li><a href="/Frontend/Templates/aviso.html" class="active"><i class="fa-solid fa-triangle-exclamation"></i><span>Enviar aviso</span></a></li>
+            <li><a href="/Frontend/Templates/somnolencias.html"><i class="fa-solid fa-eye"></i><span>Reportes Somnolencias</span></a></li>
+        </ul>
+
         <div class="user-controls">
             <div class="user-info">
-                <i class="fa-regular fa-circle-user fa-2x"></i>
-                <span>usuario</span>
+                <i class="fa-regular fa-circle-user"></i> <span>usuario</span>
             </div>
             <button class="btn-logout">Cerrar sesión</button>
         </div>
-    </header>
-
-    <nav class="navbar">
-        <ul>
-            <li><a href="/Frontend/Templates/monitoreo.html">Monitoreo</a></li>
-            <li><a href="/Frontend/Templates/registro.html">Registrar camion</a></li>
-            <li><a href="/Frontend/Templates/Infraestructura.html">Infraestructura</a></li>
-            <li><a href="/Frontend/Templates/aviso.html"class="active">Enviar aviso</a></li>
-            <li><a href="/Frontend/Templates/somnolencias.html">Reportes Somnolencias</a></li>
-        </ul>
     </nav>
-
     <main class="main-container">
     <aside class="sidebar">
     <div class="card registration-form">
@@ -597,7 +628,7 @@
 
         // 3. Mostrar el Modal
         modal.style.display = 'block';
-    });
+        });
 
         // Cierra el modal al hacer clic en la flecha de la izquierda
         closeButton.onclick = function() {

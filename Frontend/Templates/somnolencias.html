@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexo Andino - Registro de Somnolencias</title>  
-    <link rel="stylesheet" href="../static/css/somnolencias.css">
+    <title>Nexo Andino - Registro de Somnolencias</title> 
+    
+    <link rel="stylesheet" href="../static/css/somnolencias.css"> 
+    
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <!-- Incluye los iconos de Bootstrap, ya que los usas en el cuerpo del HTML -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
 
 <style>
 /* --- Variables de Estilo Unificado --- */
 :root {
-    --header-bg: #E8ECF4;
+    /* Variables usadas en la navegación unificada */
     --nav-bg: #1168ff; /* Azul principal */
     --button-main: #1168ff;
     --text-dark: #1168ff;
@@ -24,48 +25,109 @@ body {
     font-family: sans-serif;
     margin: 0;
     padding: 0;
-    background-color: var(--bg-main);
+    /* ---------------------------------------------------- */
+    /* --- FONDO DE PÁGINA COPIADO (corredor.jpg) --- */
+    /* ---------------------------------------------------- */
+    background-color: #FFFFFF; 
+    background-image: url('/imagenes/corredor.jpg'); 
+    background-size: cover; 
+    background-position: center;
+    background-repeat: no-repeat;
+    background-attachment: fixed; 
 }
 
-/* --- Header (Tomado de la página 'Enviar Aviso') --- */
-.header {
-    display: flex;
-    justify-content: space-between;
+/* ---------------------------------------------------- */
+/* --- NAVIGATION (Barra Azul con Íconos - Unificada) --- */
+/* ---------------------------------------------------- */
+.navbar {
+    /* Modificado para alinearse con la barra de infraestructura */
+    background-color: var(--nav-bg);
+    padding: 5px 20px; 
+    display: flex; 
+    justify-content: space-between; 
     align-items: center;
-    padding: 10px 20px;
-    background-color: var(--header-bg);
-    border-bottom: 1px solid #ccc;
+    flex-shrink: 0; 
+    margin-bottom: 0; /* Eliminar el margen inferior para que se pegue al borde */
 }
 
 .branding {
     display: flex;
     align-items: center;
+    flex-shrink: 0; 
+    color: white; 
 }
 
 .logo-image {
-    /* Ajusta el tamaño para que sea similar al icono anterior */
     width: 50px; 
     height: 50px; 
-    margin-right: 15px;
-    object-fit: contain; 
+    margin-right: 10px; /* Reducido a 10px */
+    object-fit: contain;
 }
 
 .branding h1 {
     margin: 0;
     font-size: 1.2rem;
-    color: var(--text-dark);
+    color: white; 
 }
 
 .branding p {
     margin: 0;
-    font-size: 0.9rem;
-    color: #666;
+    font-size: 0.7rem; /* Reducido el tamaño de la fuente */
+    color: white; 
+    white-space: nowrap;
+}
+
+.navbar ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    gap: 10px; /* Reducida la separación */
+    flex-grow: 1; 
+}
+
+.navbar li {
+    padding: 0 5px; 
+}
+
+.navbar a {
+    text-decoration: none;
+    color: white;
+    display: flex; 
+    flex-direction: column; /* Para apilar icono y texto */
+    align-items: center; 
+    padding: 5px 10px; 
+    font-weight: 600; 
+}
+
+.navbar i {
+    font-size: 1.6rem; /* Tamaño de ícono */
+    margin-bottom: 3px;
+    color: white;
+}
+
+.navbar span {
+    font-size: 0.8rem; 
+    font-weight: 600;
+    white-space: nowrap; 
+}
+
+.navbar a.active {
+    background-color: #FFFFFF; 
+    color: var(--nav-bg); 
+    border-radius: 4px;
+}
+
+.navbar a.active i {
+    color: var(--nav-bg);
 }
 
 .user-controls {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
+    flex-shrink: 0;
 }
 
 .user-info {
@@ -73,62 +135,35 @@ body {
     align-items: center;
     gap: 5px;
     font-weight: bold;
+    color: white; 
+}
+
+.user-info i {
+    color: white;
+    font-size: 2rem;
+}
+
+.user-info span {
+    font-size: 0.9rem;
 }
 
 .btn-logout {
-    background-color: var(--button-main);
+    background-color: rgba(255, 255, 255, 0.2); 
     color: white;
-    border: none;
-    padding: 8px 15px;
+    border: 1px solid white; 
+    padding: 5px 10px;
     border-radius: 5px;
     cursor: pointer;
     font-weight: bold;
-}
-
-/* --- Navigation (Tomado de la página 'Enviar Aviso') --- */
-.navbar {
-    background-color: var(--nav-bg);
-    padding: 10px 0;
-    margin-bottom: 20px; /* Añadido espacio después de la barra de navegación */
-}
-
-.navbar ul {
-    list-style-type: none;
-    margin: 0;
-    padding: 0;
-    width: 100%;
-    display: flex;
-    justify-content: center;
-    gap: 30px;
-}
-
-.navbar a {
-    text-decoration: none;
-    color: white;
-    font-weight: bold;
-    padding: 5px 10px;
-}
-
-.navbar a.active {
-    background-color: rgba(255, 255, 255, 0.2); 
-    border-radius: 4px;
+    font-size: 0.85rem;
 }
 
 /* --- Estilos específicos de la Tabla y Tarjeta --- */
 .main-content-area {
     width: 95%;
     max-width: 1000px;
-    margin: 0 auto;
+    margin: 20px auto; /* Añadimos margen superior e inferior */
     padding: 0 10px;
-}
-
-.card {
-    background-color: #FFFFFF;
-    padding: 20px;
-    border-radius: 12px;
-    border: 1px solid #c7e0ff; 
-    box-shadow: 0 5px 30px rgba(0, 108, 255, 0.1); 
-    text-align: left;
 }
 
 .page-header {
@@ -139,6 +174,17 @@ body {
     margin-bottom: 1.5rem;
 }
 
+/* ---------------------------------------------------- */
+/* --- NUEVOS ESTILOS PARA MEJORAR LECTURA DEL TÍTULO --- */
+/* ---------------------------------------------------- */
+.title-container {
+    background-color: rgba(255, 255, 255, 0.9); /* Fondo blanco semi-transparente */
+    padding: 10px 15px; /* Relleno interior */
+    border-radius: 8px; /* Bordes redondeados */
+    border: 1px solid var(--text-dark); /* Borde sutil del color principal */
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
 .page-header h2 {
     color: var(--text-dark);
     margin-top: 0;
@@ -146,9 +192,11 @@ body {
     font-size: 1.8rem;
 }
 .page-header small {
-    color: #666;
+    color: #444; /* Oscurecido para mejor contraste */
     font-size: 0.85rem;
 }
+/* ---------------------------------------------------- */
+
 
 /* Estilos de Insignias (Badge Panel) */
 .badge-panel {
@@ -157,7 +205,7 @@ body {
 }
 
 .badge-panel .badge {
-    background-color: var(--text-dark); /* Color azul para las insignias */
+    background-color: var(--text-dark); 
     color: white;
     padding: 6px 10px;
     border-radius: 5px;
@@ -165,20 +213,20 @@ body {
     font-weight: bold;
 }
 .badge-panel .badge.bg-success {
-    background-color: #28a745; /* Dejamos el verde para Activos, pero más plano */
+    background-color: #28a745; 
 }
 
 /* Estilo de la Notificación (Alerta) */
 #notificacion {
-    background-color: #f8d7da; /* Fondo rojo claro */
-    color: #721c24; /* Texto rojo oscuro */
+    background-color: #f8d7da; 
+    color: #721c24; 
     border: 1px solid #f5c6cb;
     padding: 15px;
     border-radius: 8px;
     text-align: center;
     font-weight: bold;
     margin-bottom: 20px;
-    opacity: 0; /* Oculto por defecto */
+    opacity: 0; 
     transition: transform 300ms ease, opacity 300ms ease;
 }
 
@@ -187,6 +235,16 @@ body {
 #notificacion.d-none { display: none !important; }
 
 /* Estilo del Encabezado de la Tarjeta */
+.card {
+    /* Mantenido: Añade transparencia para ver el fondo */
+    background-color: rgba(255, 255, 255, 0.95);
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #c7e0ff; 
+    box-shadow: 0 5px 30px rgba(0, 108, 255, 0.1); 
+    text-align: left;
+}
+
 .card-header-detail {
     display: flex;
     justify-content: space-between;
@@ -218,7 +276,7 @@ body {
 }
 
 .table thead {
-    position: sticky; /* Fija el encabezado al hacer scroll */
+    position: sticky; 
     top: 0;
     z-index: 10;
     background-color: var(--nav-bg);
@@ -236,7 +294,7 @@ body {
 }
 
 .table-hover tbody tr:hover {
-    background-color: #f0f8ff; /* Fondo azul muy claro al pasar el ratón */
+    background-color: #f0f8ff; 
     cursor: default;
 }
 
@@ -265,8 +323,7 @@ body {
 </head>
 <body class="bg-light">
 
-    <!-- Sustituimos la navbar de Bootstrap por la estructura de Nexo Andino -->
-    <header class="header">
+    <nav class="navbar">
         <div class="branding">
             <img src="/imagenes/inicio.jpg" alt="Logo Nexo Andino" class="logo-image">
             <div>
@@ -274,48 +331,40 @@ body {
                 <p>Corredor Bioceanico Capricornio</p>
             </div>
         </div>
+        
+        <ul>
+            <li><a href="/Frontend/Templates/monitoreo.html"><i class="fa-solid fa-desktop"></i><span>Monitoreo</span></a></li>
+            <li><a href="/Frontend/Templates/registro.html"><i class="fa-solid fa-truck-moving"></i><span>Registrar camion</span></a></li>
+            <li><a href="/Frontend/Templates/Infraestructura.html"><i class="fa-solid fa-city"></i><span>Infraestructura</span></a></li>
+            <li><a href="/Frontend/Templates/aviso.html"><i class="fa-solid fa-triangle-exclamation"></i><span>Enviar aviso</span></a></li>
+            <li><a href="/Frontend/Templates/somnolencias.html" class="active"><i class="fa-solid fa-eye"></i><span>Reportes Somnolencias</span></a></li>
+        </ul>
+
         <div class="user-controls">
             <div class="user-info">
-                <i class="fa-regular fa-circle-user fa-2x"></i>
-                <span>usuario</span>
+                <i class="fa-regular fa-circle-user"></i> <span>usuario</span>
             </div>
             <button class="btn-logout">Cerrar sesión</button>
         </div>
-    </header>
-
-    <nav class="navbar">
-        <ul>
-            <li><a href="/Frontend/Templates/monitoreo.html">Monitoreo</a></li>
-            <li><a href="/Frontend/Templates/registro.html">Registrar camion</a></li>
-            <li><a href="/Frontend/Templates/Infraestructura.html">Infraestructura</a></li>
-            <li><a href="/Frontend/Templates/aviso.html">Enviar aviso</a></li>
-            <li><a href="/Frontend/Templates/somnolencias.html" class="active">Reportes Somnolencias</a></li>
-        </ul>
     </nav>
-    <!-- Fin de la cabecera unificada -->
-
-
     <div class="main-content-area">
         <div class="page-header">
-            <div>
+            <div class="title-container">
                 <h2 class="mb-0">Registro de somnolencias</h2>
                 <small class="text-muted">Eventos detectados en tiempo real</small>
             </div>
-
             <div class="badge-panel">
                 <span class="badge bg-success">Activos <span id="badge-activos" class="fw-semibold">0</span></span>
                 <span class="badge">Total <span id="badge-total" class="fw-semibold">0</span></span>
             </div>
         </div>
 
-        <!-- Mantenemos la estructura de la notificación (cambiando solo el estilo CSS) -->
         <div id="notificacion" class="alert d-none" role="alert">
             <i class="bi bi-exclamation-triangle-fill me-2"></i>
             <span id="notificacion-text">Alerta de somnolencia</span>
         </div>
 
         <div class="card">
-            <!-- Contenido de la tarjeta adaptado a clases menos dependientes de Bootstrap -->
             <div class="card-body">
                 <div class="card-header-detail">
                     <div class="header-icon-group">
@@ -342,18 +391,16 @@ body {
                             </tr>
                         </thead>
                         <tbody id="tabla-somnolencias">
-                            <!-- Datos simulados cargados por JavaScript -->
-                        </tbody>
+                            </tbody>
                     </table>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Mantenemos el enlace al script JS. Asegúrate de que la ruta sea correcta. -->
     <script src="../static/js/somnolencias.js"></script> 
-   <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
-   <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
 
 </body>
 </html>

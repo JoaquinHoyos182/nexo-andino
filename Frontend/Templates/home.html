@@ -3,16 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Nexo Andino - Corredor Bioceánico Capricornio</title>
+    <title>Nexo Andino - Monitoreo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
 <style>
 :root {
-            --header-bg: #E8ECF4;
-            --nav-bg: #1168ff;
-            --button-orange: #1168ff;
-            --text-dark: #1168ff;
-            --bg-main: #F0F2F5;
+    --nav-bg: #1168ff; 
+    --button-main: #1168ff;
+    --text-dark: #1a1a1a; 
+    --bg-main: #F0F2F5; 
+}
+
+        /* ---------------------------------------------------- */
+        /* --- ESTRUCTURA PRINCIPAL (Para altura completa) --- */
+        /* ---------------------------------------------------- */
+        html, body {
+            height: 100%; 
         }
 
         body {
@@ -20,70 +26,47 @@
             margin: 0;
             padding: 0;
             background-color: var(--bg-main);
+            display: flex; 
+            flex-direction: column; 
         }
 
-        /* --- Header --- */
-        .header {
-            display: flex;
-            justify-content: space-between;
+        /* ---------------------------------------------------- */
+        /* --- NAVIGATION (Barra Azul) --- */
+        /* ---------------------------------------------------- */
+        .navbar {
+            background-color: var(--nav-bg);
+            padding: 5px 20px; 
+            display: flex; 
+            justify-content: space-between; 
             align-items: center;
-            padding: 10px 20px;
-            background-color: var(--header-bg);
-            border-bottom: 1px solid #ccc;
+            flex-shrink: 0; 
         }
-
+        
         .branding {
             display: flex;
             align-items: center;
+            flex-shrink: 0; 
+            color: white; 
         }
 
         .logo-image {
-        /* Ajusta el tamaño para que sea similar al icono anterior */
-        width: 50px; /* Ajusta según el tamaño deseado */
-        height: 50px; /* Ajusta según el tamaño deseado */
-        margin-right: 15px;
-        object-fit: contain; /* Asegura que la imagen se vea completa */
+            width: 50px; 
+            height: 50px; 
+            margin-right: 10px;
+            object-fit: contain;
         }
 
         .branding h1 {
             margin: 0;
             font-size: 1.2rem;
-            color: var(--text-dark);
+            color: white; 
         }
 
         .branding p {
             margin: 0;
-            font-size: 0.9rem;
-            color: #666;
-        }
-
-        .user-controls {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .user-info {
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            font-weight: bold;
-        }
-
-        .btn-logout {
-            background-color: var(--button-orange);
+            font-size: 0.7rem; 
             color: white;
-            border: none;
-            padding: 8px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            font-weight: bold;
-        }
-
-        /* --- Navigation --- */
-        .navbar {
-            background-color: var(--nav-bg);
-            padding: 10px 0;
+            white-space: nowrap;
         }
 
         .navbar ul {
@@ -92,86 +75,150 @@
             padding: 0;
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 10px; 
+            flex-grow: 1; 
+        }
+
+        .navbar li {
+            padding: 0 5px; 
         }
 
         .navbar a {
             text-decoration: none;
             color: white;
-            font-weight: bold;
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 5px 10px; 
+            font-weight: 600; 
+        }
+
+        .navbar i {
+            font-size: 1.6rem; 
+            margin-bottom: 3px;
+            color: white;
+        }
+        
+        .navbar span {
+            font-size: 0.8rem; 
+            font-weight: 600;
+            white-space: nowrap; 
         }
 
         .navbar a.active {
-        background-color: rgba(255, 255, 255, 0.2); /* Sutil indicador de la página actual */
-        border-radius: 4px;
+            background-color: #FFFFFF; 
+            color: var(--nav-bg); 
+            border-radius: 4px;
         }
 
-        /* --- Main Content Layout --- */
+        .navbar a.active i {
+            color: var(--nav-bg);
+        }
+        
+        .user-controls {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-shrink: 0;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+            color: white; 
+        }
+        
+        .user-info i {
+            color: white;
+            font-size: 2rem;
+        }
+        
+        .user-info span {
+            font-size: 0.9rem;
+        }
+
+        .btn-logout {
+            background-color: rgba(255, 255, 255, 0.2); 
+            color: white;
+            border: 1px solid white; 
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            font-size: 0.85rem;
+        }
+        
+        /* ---------------------------------------------------- */
+        /* --- MAIN CONTENT (Mapa que Ocupa Todo el Espacio) --- */
+        /* ---------------------------------------------------- */
         .main-container {
             display: flex;
-            padding: 20px;
-            gap: 20px;
-            max-width: 1200px;
+            padding: 0; /* Aseguramos que no haya padding lateral aquí */
+            width: 100%; 
             margin: 0 auto;
+            flex-grow: 1; 
         }
 
-        /* Left Column (Map) */
         .map-section {
-            flex: 3; /* Toma 3 partes del espacio */
+            flex-grow: 1; 
             background-color: #fff;
-            border-radius: 8px;
             overflow: hidden;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            display: flex; 
+            position: relative; /* Contenedor para elementos absolutos */
         }
 
-        /* Esta es la imagen principal que deberás reemplazar */
         .main-map-image {
             width: 100%;
-            height: auto;
-            display: block;
-            /* Placeholder temporal para que se vea algo */
-            min-height: 400px;
-            background-color: #ddd;
-            text-align: center;
-            line-height: 400px; 
-            color: #666;
-            font-style: italic;
+            height: 100%; 
+            /* **CAMBIO CLAVE: Reemplazamos el fondo gris por una imagen de mapa** */
+            background-image: url('/imagenes/mapaF.jpg'); 
+            background-size: cover; /* Cubre todo el contenedor */
+            background-position: center;
+            background-repeat: no-repeat;
+            
+            /* Eliminamos estilos de centrado de texto y padding que ya no necesitamos */
+            display: block; 
+            color: transparent; /* Ocultamos el texto de marcador */
         }
-
-
-        /* Right Column (Sidebar cards) */
-        .sidebar {
-            flex: 1; /* Toma 1 parte del espacio */
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
-        }
-
+        
+        /* ---------------------------------------------------- */
+        /* --- ESTILOS PARA LOS CUADROS FLOTANTES (Cards) --- */
+        /* ---------------------------------------------------- */
         .card {
-            background-color: #DDE4F0; /* Color azul grisáceo claro de las cajas laterales */
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            background-color: #FFFFFF; 
+            padding: 15px; /* Reducimos el padding para ahorrar espacio */
+            border-radius: 5px; 
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
             text-align: center;
-            border: 2px solid #BDCADA;
+            border: 1px solid #ccc; 
+            
+            position: absolute; /* Posicionamiento absoluto */
+            z-index: 100; /* Alto z-index para estar sobre el mapa */
+            width: 240px; 
+            
+            /* **CORRECCIÓN CLAVE:** Asegura que padding y border se incluyan en el ancho/alto */
+            box-sizing: border-box; 
         }
 
         .card h3 {
             margin-top: 0;
             font-size: 1rem;
-            color: var(--text-dark);
+            color: var(--nav-bg); 
+            font-weight: bold;
         }
 
         .card input[type="text"] {
-            width: 80%;
+            width: 100%; 
             padding: 8px;
-            margin-bottom: 10px;
+            margin: 5px 0 10px;
             border: 1px solid #ccc;
             border-radius: 4px;
+            box-sizing: border-box; /* También para el input */
         }
 
         .card .btn-action {
-            background-color: var(--button-orange);
             color: white;
             border: none;
             padding: 8px 25px;
@@ -180,14 +227,34 @@
             font-weight: bold;
         }
 
-        /* Ajuste específico para la caja de aviso */
-        .warning-box {
-            margin-top: auto; /* Empuja esta caja hacia abajo si hay espacio extra */
+        /* Posicionamiento específico para la tarjeta de rastreo (superior izquierda) */
+        .card.rastrear-camion {
+            top: 20px; 
+            left: 20px;
+        }
+
+        /* Posicionamiento específico para la tarjeta de aviso (superior derecha) */
+        .card.warning-box {
+            top: 20px; 
+            right: 20px;
+        }
+
+        /* Colores específicos de los botones */
+        .rastrear-camion .btn-action {
+            background-color: var(--button-main); 
+        }
+        .warning-box .btn-action {
+            background-color: #5abff2; 
+        }
+
+        .sidebar, .card-content {
+            display: none !important;
         }
     </style>
 </head>
-<body class="bg-light">
-<header class="header">
+<body>
+
+    <nav class="navbar">
         <div class="branding">
             <img src="/imagenes/inicio.jpg" alt="Logo Nexo Andino" class="logo-image">
             <div>
@@ -195,35 +262,29 @@
                 <p>Corredor Bioceanico Capricornio</p>
             </div>
         </div>
+        
+        <ul>
+            <li><a href="/Frontend/Templates/monitoreo.html"><i class="fa-solid fa-desktop"></i><span>Monitoreo</span></a></li>
+            <li><a href="/Frontend/Templates/registro.html"><i class="fa-solid fa-truck-moving"></i><span>Registrar camion</span></a></li>
+            <li><a href="/Frontend/Templates/Infraestructura.html"><i class="fa-solid fa-city"></i><span>Infraestructura</span></a></li>
+            <li><a href="/Frontend/Templates/aviso.html"><i class="fa-solid fa-triangle-exclamation"></i><span>Enviar aviso</span></a></li>
+            <li><a href="/Frontend/Templates/somnolencias.html"><i class="fa-solid fa-eye"></i><span>Reportes Somnolencias</span></a></li>
+        </ul>
+
         <div class="user-controls">
             <div class="user-info">
-                <i class="fa-regular fa-circle-user fa-2x"></i>
-                <span>usuario</span>
+                <i class="fa-regular fa-circle-user"></i> <span>usuario</span>
             </div>
             <button class="btn-logout">Cerrar sesión</button>
         </div>
-    </header>
-
-    <nav class="navbar">
-        <ul>
-            <li><a href="/Frontend/Templates/monitoreo.html">Monitoreo</a></li>
-            <li><a href="/Frontend/Templates/registro.html">Registrar camion</a></li>
-            <li><a href="/Frontend/Templates/Infraestructura.html">Infraestructura</a></li>
-            <li><a href="/Frontend/Templates/aviso.html">Enviar aviso</a></li>
-            <li><a href="/Frontend/Templates/somnolencias.html">Reportes Somnolencias</a></li>
-        </ul>
     </nav>
 
     <main class="main-container">
         <section class="map-section">
-            <img class="main-map-image" src="ruta/a/tu/imagen_del_mapa.jpg" alt="Mapa del Corredor Bioceánico Vial mostrando rutas en Perú, Bolivia, Chile, Argentina y Paraguay">
-        </section>
-
-        <aside class="sidebar">
-            <div class="card">
+            
+            <div class="card rastrear-camion">
                 <h3>Rastrear Camion</h3>
-                <input type="text" placeholder="">
-                <br>
+                <input type="text" placeholder="N° de Patente o Guía">
                 <button class="btn-action">Buscar</button>
             </div>
 
@@ -231,9 +292,11 @@
                 <h3>AVISO Somnolencia Detectada</h3>
                 <button class="btn-action">Siguiente</button>
             </div>
-        </aside>
+
+            <div class="main-map-image">
+                </div>
+        </section>
     </main>
 
 </body>
-
 </html>
