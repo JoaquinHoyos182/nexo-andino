@@ -1,0 +1,182 @@
+/* 1. Estilos Globales y Fondo */
+/* Reset básico para asegurar que el diseño ocupe todo el espacio */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    font-family: Arial, sans-serif; /* Fuente base */
+}
+
+/* Fondo principal (color gris/azul muy claro similar a la imagen) */
+.custom-bg {
+    background-color: #E6EBF0; 
+}
+
+/* 2. Diseño de Dos Columnas con Flexbox */
+.main-container {
+    display: flex; /* Habilita Flexbox */
+    height: 100vh; /* Ocupa el 100% de la altura de la vista */
+    align-items: center; /* Centra verticalmente los elementos internos */
+    justify-content: center; /* Asegura que el contenido esté centrado si no ocupa todo */
+}
+
+/* Columna Izquierda - Imagen y Logo */
+.image-column {
+    position: relative;
+    width: 60%; /* Ocupa 60% del ancho */
+    height: 90%; 
+    padding: 20px; /* Añadir padding para alejar la imagen de los bordes */
+    display: flex; /* Centrar el contenido de la imagen */
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.map-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* mostrar la imagen completa sin recortar */ 
+}
+
+/* Superposición del Logo y Título */
+.logo-text-overlay {
+    position: absolute;
+    left: 50%; 
+    transform: translateX(-50%);
+    top: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    z-index: 10;
+}
+
+.logo-and-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0px; /* Pequeño espacio entre el título principal y el subtítulo */
+}
+
+.app-logo {
+    width: 120px; /* Tamaño del logo */
+    height: 120px;
+    margin-right: 15px;
+}
+
+.app-title {
+    font-size: 3.5em; 
+    font-weight: bold;
+    color: #1168ff; /* Color de Nexo Andino */
+    letter-spacing: 2px;
+    font-family: "Archivo Black", sans-serif;
+    font-style: normal;
+}
+
+.subtitle {
+    font-size: 1.2em; /* Más pequeño */
+    color: #146a03; 
+    margin-top: 0px;
+    font-family: 'Montserrat', sans-serif; /* Mismo tipo de letra */
+    font-weight: 500; /* Un poco menos negrita */
+}
+
+
+/* 3. Columna Derecha - Formulario */
+.form-column {
+    width: 40%; /* Ocupa 40% del ancho */
+    display: flex;
+    justify-content: center; /* Centra horizontalmente el contenido */
+    align-items: center; /* Centra verticalmente el contenido */
+    height: 100%;
+    position: relative;
+}
+
+/* Estilo de la Tarjeta de Login */
+.login-card {
+    position: relative;
+    background-color: #e1f3fc; /* Fondo blanco */
+    padding: 40px 30px; /* Más padding vertical y horizontal */
+    border-radius: 15px; /* Bordes redondeados */
+    width: 400px; /* Ancho fijo */
+    /* Sombra suave similar a la de la imagen */
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15); 
+    margin-top: 150px;
+    border: 2px solid #1168ff;
+}
+
+/* Título */
+.login-card h2 {
+    font-size: 1.8rem;
+    font-weight: 500;
+    color: #020c16;
+    margin-bottom: 30px; /* Espacio debajo del título */
+}
+
+/* Estilos de las etiquetas (Usuario/Contraseña) */
+.custom-label {
+    font-size: 0.9em;
+    font-weight: bold;
+    color: #020c16;
+    margin-bottom: 5px;
+}
+
+/* Agrupación de input y icono */
+.custom-input-group .input-group-text {
+    background-color: #FFFFFF; 
+    border-right: none;
+    color: #ADB5BD; /* Color del ícono gris claro */
+    padding-left: 15px;
+}
+
+.custom-input-group .form-control {
+    border-left: none;
+    height: calc(1.5em + 1.2rem + 2px); /* Ajusta la altura del input */
+    padding: 0.6rem 0.75rem; /* Ajusta el padding interno */
+    border-color: #CED4DA; 
+    box-shadow: none !important; 
+    transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+}
+
+.custom-input-group .form-control:focus {
+    border-color: #A3B9CC; /* Borde más claro al enfocar */
+}
+
+.custom-input-group .form-control::placeholder {
+    color: #ADB5BD;
+    font-style: italic;
+}
+
+/* Estilo del Botón de Iniciar Sesión */
+.custom-btn {
+    background-color: #5053ff; /* Color naranja/coral */
+    border-color: #1f40ae;
+    font-weight: bold;
+    padding: 10px 0;
+    margin-top: 15px; /* Espacio encima del botón */
+    border-radius: 8px; /* Bordes suaves */
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.custom-btn:hover {
+    background-color: #5053ff; 
+    border-color: #5053ff;
+}
+
+/* 4. Media Queries para Responsividad */
+@media (max-width: 992px) {
+    .image-column {
+        display: none; /* Oculta la imagen en tabletas y móviles */
+    }
+    .form-column {
+        width: 100%; /* Ocupa todo el ancho */
+        height: auto;
+        padding: 50px 20px;
+    }
+    .main-container {
+        height: auto;
+        min-height: 100vh;
+    }
+    .login-card {
+        width: 100%;
+        max-width: 400px;
+    }
+}

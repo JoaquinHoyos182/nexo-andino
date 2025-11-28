@@ -10,8 +10,8 @@
 :root {
             --header-bg: #E8ECF4;
             --nav-bg: #1168ff;
-            --button-orange: #428fed;
-            --text-dark: #333;
+            --button-orange: #1168ff;
+            --text-dark: #1168ff;
             --bg-main: #F0F2F5;
         }
 
@@ -37,15 +37,22 @@
             align-items: center;
         }
 
-        .logo-icon {
+       /*.logo-icon {
             font-size: 30px;
             color: var(--nav-bg);
             margin-right: 15px;
-            /* Simulando el icono de la jeringa con un círculo de fondo */
+            /* Simulando el icono de la jeringa con un círculo de fondo 
             background: #fff;
             padding: 8px;
             border-radius: 50%;
             border: 2px solid var(--nav-bg);
+        }*/
+        .logo-image {
+        /* Ajusta el tamaño para que sea similar al icono anterior */
+        width: 50px; /* Ajusta según el tamaño deseado */
+        height: 50px; /* Ajusta según el tamaño deseado */
+        margin-right: 15px;
+        object-fit: contain; /* Asegura que la imagen se vea completa */
         }
 
         .branding h1 {
@@ -102,6 +109,11 @@
             text-decoration: none;
             color: white;
             font-weight: bold;
+        }
+
+        .navbar a.active {
+        background-color: rgba(255, 255, 255, 0.2); /* Sutil indicador de la página actual */
+        border-radius: 4px;
         }
 
         /* --- Main Content Layout --- */
@@ -187,7 +199,7 @@
 <body class="bg-light">
 <header class="header">
         <div class="branding">
-            <i class="fa-solid fa-syringe logo-icon"></i>
+            <img src="/imagenes/inicio.jpg" alt="Logo Nexo Andino" class="logo-image">
             <div>
                 <h1>NEXO ANDINO</h1>
                 <p>Corredor Bioceanico Capricornio</p>
@@ -206,7 +218,7 @@
         <ul>
             <li><a href="#">Controlar Cargas</a></li>
             <li><a href="#">Registrar camion</a></li>
-            <li><a href="#">Solicitar estado corredor</a></li>
+            <li><a href="#">Estado corredor</a></li>
             <li><a href="#">Enviar aviso</a></li>
         </ul>
     </nav>
