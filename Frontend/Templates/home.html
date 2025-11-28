@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexo Andino - Corredor Bioceánico Capricornio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+            --header-bg: #E8ECF4;
+            --nav-bg: #1168ff;
+            --button-orange: #1168ff;
+            --text-dark: #1168ff;
+            --bg-main: #F0F2F5;
+        }
+
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-main);
+        }
+
+        /* --- Header --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: var(--header-bg);
+            border-bottom: 1px solid #ccc;
+        }
+
+        .branding {
+            display: flex;
+            align-items: center;
+        }
+
+       /*.logo-icon {
+            font-size: 30px;
+            color: var(--nav-bg);
+            margin-right: 15px;
+            /* Simulando el icono de la jeringa con un círculo de fondo 
+            background: #fff;
+            padding: 8px;
+            border-radius: 50%;
+            border: 2px solid var(--nav-bg);
+        }*/
+        .logo-image {
+        /* Ajusta el tamaño para que sea similar al icono anterior */
+        width: 50px; /* Ajusta según el tamaño deseado */
+        height: 50px; /* Ajusta según el tamaño deseado */
+        margin-right: 15px;
+        object-fit: contain; /* Asegura que la imagen se vea completa */
+        }
+
+        .branding h1 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+        }
+
+        .branding p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .user-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+        }
+
+        .btn-logout {
+            background-color: var(--button-orange);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* --- Navigation --- */
+        .navbar {
+            background-color: var(--nav-bg);
+            padding: 10px 0;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        .navbar a.active {
+        background-color: rgba(255, 255, 255, 0.2); /* Sutil indicador de la página actual */
+        border-radius: 4px;
+        }
+
+        /* --- Main Content Layout --- */
+        .main-container {
+            display: flex;
+            padding: 20px;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Left Column (Map) */
+        .map-section {
+            flex: 3; /* Toma 3 partes del espacio */
+            background-color: #fff;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+
+        /* Esta es la imagen principal que deberás reemplazar */
+        .main-map-image {
+            width: 100%;
+            height: auto;
+            display: block;
+            /* Placeholder temporal para que se vea algo */
+            min-height: 400px;
+            background-color: #ddd;
+            text-align: center;
+            line-height: 400px; 
+            color: #666;
+            font-style: italic;
+        }
+
+
+        /* Right Column (Sidebar cards) */
+        .sidebar {
+            flex: 1; /* Toma 1 parte del espacio */
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .card {
+            background-color: #DDE4F0; /* Color azul grisáceo claro de las cajas laterales */
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            text-align: center;
+            border: 2px solid #BDCADA;
+        }
+
+        .card h3 {
+            margin-top: 0;
+            font-size: 1rem;
+            color: var(--text-dark);
+        }
+
+        .card input[type="text"] {
+            width: 80%;
+            padding: 8px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        .card .btn-action {
+            background-color: var(--button-orange);
+            color: white;
+            border: none;
+            padding: 8px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* Ajuste específico para la caja de aviso */
+        .warning-box {
+            margin-top: auto; /* Empuja esta caja hacia abajo si hay espacio extra */
+        }
+    </style>
+</head>
+<body class="bg-light">
+<header class="header">
+        <div class="branding">
+            <img src="/imagenes/inicio.jpg" alt="Logo Nexo Andino" class="logo-image">
+            <div>
+                <h1>NEXO ANDINO</h1>
+                <p>Corredor Bioceanico Capricornio</p>
+            </div>
+        </div>
+        <div class="user-controls">
+            <div class="user-info">
+                <i class="fa-regular fa-circle-user fa-2x"></i>
+                <span>usuario</span>
+            </div>
+            <button class="btn-logout">Cerrar sesión</button>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="#">Controlar Cargas</a></li>
+            <li><a href="#">Registrar camion</a></li>
+            <li><a href="#">Estado corredor</a></li>
+            <li><a href="#">Enviar aviso</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-container">
+        <section class="map-section">
+            <img class="main-map-image" src="ruta/a/tu/imagen_del_mapa.jpg" alt="Mapa del Corredor Bioceánico Vial mostrando rutas en Perú, Bolivia, Chile, Argentina y Paraguay">
+        </section>
+
+        <aside class="sidebar">
+            <div class="card">
+                <h3>Rastrear Camion</h3>
+                <input type="text" placeholder="">
+                <br>
+                <button class="btn-action">Buscar</button>
+            </div>
+
+            <div class="card warning-box">
+                <h3>AVISO Somnolencia Detectada</h3>
+                <button class="btn-action">Siguiente</button>
+            </div>
+        </aside>
+    </main>
+
+</body>
+
+</html>

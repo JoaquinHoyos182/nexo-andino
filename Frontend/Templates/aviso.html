@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexo Andino - Corredor Bioceánico Capricornio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+            --header-bg: #E8ECF4;
+            --nav-bg: #1168ff;
+            --button-main: #1168ff;
+            --text-dark: #1168ff;
+            --bg-main: #F0F2F5;
+        }
+
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-main);
+        }
+
+        /* --- Header --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: var(--header-bg);
+            border-bottom: 1px solid #ccc;
+        }
+
+        .branding {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-image {
+        /* Ajusta el tamaño para que sea similar al icono anterior */
+        width: 50px; /* Ajusta según el tamaño deseado */
+        height: 50px; /* Ajusta según el tamaño deseado */
+        margin-right: 15px;
+        object-fit: contain; /* Asegura que la imagen se vea completa */
+        }
+
+        .branding h1 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+        }
+
+        .branding p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .user-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+        }
+
+        .btn-logout {
+            background-color: var(--button-main);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* --- Navigation --- */
+        .navbar {
+            background-color: var(--nav-bg);
+            padding: 10px 0;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+            padding: 5px 10px;
+        }
+
+        .navbar a.active {
+        background-color: rgba(255, 255, 255, 0.2); /* Sutil indicador de la página actual */
+        border-radius: 4px;
+        }
+
+        /* --- Main Content Layout --- */
+        .main-container {
+            display: flex;
+            padding: 0px;
+            gap: 20px;
+            max-width: 100%;
+            justify-content: center; 
+            align-items: center; 
+            align-items: flex-start; /* Alineado arriba para evitar que la tarjeta sea demasiado alta */
+            min-height: calc(100vh - 80px); /* Ocupa casi toda la altura visible */
+            margin: 0 auto;
+        }
+
+
+        /* Right Column (Sidebar cards) */
+        .sidebar {
+            width: 90%;
+            max-width: 900px;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin: 40px 0;
+        }
+
+        .card {
+            background-color: #FFFFFF; /* Fondo blanco para el recuadro */
+            padding: 40px;
+            border-radius: 12px;
+            border: 1px solid #c7e0ff; /* Borde azul muy claro */
+            box-shadow: 0 5px 30px rgba(0, 108, 255, 0.1); /* Sombra sutil y azulada */
+            text-align: left; /* Alineamos todo el contenido a la izquierda */
+        }
+
+        .card .btn-action {
+            background-color: var(--button-main);
+            color: white;
+            border: none;
+            padding: 8px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background-color 0.3s;
+        }
+
+        .card .btn-action:hover {
+            background-color: #004dcc;
+        }
+        .registration-form {
+            text-align: left; /* Alinea el texto a la izquierda dentro de la tarjeta */
+        }
+
+        .form-section {
+            padding: 0;
+            border: none;
+            background-color: transparent;
+            margin-bottom: 20px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            }
+        
+        .form-group {
+            flex: 1; /* Ocupa el espacio disponible */
+            min-width: 45%; /* Ancho mínimo para dos columnas */
+            box-sizing: border-box;
+        }
+    
+        .form-group.full-width {
+            min-width: 100%;
+        }
+
+        .form-section h3 {
+            display: none;
+        }
+
+        .registration-form label {
+            display: block;
+            font-weight: bold;
+            margin-top: 6px;
+            margin-bottom: 3px;
+            font-size: 0.95em;
+            color: #333;
+        }
+
+        /* Estilo para todos los inputs de texto y número, y select */
+.registration-form input[type="text"],
+.registration-form input[type="datetime-local"],
+.registration-form select {
+    width: 100%; /* Ocupa el 100% del form-group */
+    padding: 8px 10px; /* Reducimos el padding vertical a 8px */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 2px;
+    font-size: 1em;
+}
+
+/* Estilo específico para el textarea (Alto) */
+.registration-form textarea {
+    width: 100%;
+    padding: 10px; /* Mantenemos padding normal para legibilidad */
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+    margin-top: 2px;
+    font-size: 1em;
+    resize: vertical; 
+    min-height: 150px; /* Mantenemos la altura grande para Causa y Detalle */
+}
+
+        .location-group {
+            display: flex;
+            gap: 10px;
+            align-items: flex-end; /* Alinea las cajas de texto */
+            width: 100%;
+        }
+    
+        .location-group span {
+            font-weight: bold;
+            white-space: nowrap;
+            color: #333;
+            margin-bottom: 2px;
+        }
+
+        .location-group input {
+            flex: 1;
+            padding: 8px; /* Ajustado para un mejor aspecto */
+        }
+
+        /* Estilos para el radio group de gravedad */
+        .severity-radio-group {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            margin-top: 5px;
+        }
+
+        .severity-radio-group input[type="radio"] {
+            margin-right: 5px;
+        }
+
+        /* Botón de registro al final */
+        .full-width-btn {
+            width: 40%;
+            margin-top: 20px;
+            padding: 12px 30px;
+            font-size: 1.1rem;
+            /* Centrar el botón dentro de la tarjeta */
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            background-color: #5abff2;
+            border: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .full-width-btn:hover {
+            background-color: #004dcc;
+        }
+
+    </style>
+</head>
+<body class="bg-light">
+<header class="header">
+        <div class="branding">
+            <img src="/imagenes/inicio.jpg" alt="Logo Nexo Andino" class="logo-image">
+            <div>
+                <h1>NEXO ANDINO</h1>
+                <p>Corredor Bioceanico Capricornio</p>
+            </div>
+        </div>
+        <div class="user-controls">
+            <div class="user-info">
+                <i class="fa-regular fa-circle-user fa-2x"></i>
+                <span>usuario</span>
+            </div>
+            <button class="btn-logout">Cerrar sesión</button>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="#">Controlar Cargas</a></li>
+            <li><a href="#">Registrar camion</a></li>
+            <li><a href="#">Estado corredor</a></li>
+            <li><a href="#" class="active">Enviar aviso</a></li>
+        </ul>
+    </nav>
+
+    <main class="main-container">
+    <aside class="sidebar">
+    <div class="card registration-form">
+        <h2 style="color: var(--text-dark); margin-bottom: 30px; font-size: 1.8rem; text-align: center;">Registrar Aviso</h2>
+
+        <form action="/registrar" method="POST" enctype="multipart/form-data">
+            
+            <div class="form-group full-width" style="margin-bottom: 30px;">
+                <label for="complicacion" style="color: var(--text-dark);">Tipo de Complicación:</label>
+                <select id="complicacion" name="complicacion" required>
+                    <option value="" disabled selected>Seleccione un tipo de complicación</option>
+                    <option value="accidente">Accidente</option>
+                    <option value="corte_total">Corte Total</option>
+                    <option value="corte_parcial">Corte Parcial</option>
+                    <option value="obra">Obra</option>
+                    <option value="desvio">Desvío</option>
+                    <option value="congestion">Congestión</option>
+                    <option value="protesta">Protesta</option>
+                    <option value="vehiculo_detenido">Vehículo Detenido</option>
+                    <option value="condiciones_climaticas">Condiciones Climáticas</option>
+                    <option value="otros">Otros</option>
+                </select>
+                </div>
+
+            <div class="form-group full-width" style="margin-bottom: 20px;">
+                <label style="color: var(--text-dark);">Ubicación:</label>
+                <div class="location-group">
+                    <span><strong>Desde</strong></span>
+                    <input type="text" id="ubicacion_desde" name="ubicacion_desde" placeholder="Punto de inicio o kilómetro exacto" required>
+                    <span><strong>Hasta</strong></span>
+                    <input type="text" id="ubicacion_hasta" name="ubicacion_hasta" placeholder="Punto final o área afectada" required>
+                </div>
+            </div>
+            
+            <div style="display: flex; gap: 20px; margin-bottom: 20px; flex-wrap: wrap;">
+                <div class="form-group" style="flex: 1; min-width: 200px;">
+                    <label for="fecha_hora_aviso" style="color: var(--text-dark);">Fecha y Hora del Aviso:</label>
+                    <input type="datetime-local" id="fecha_hora_aviso" name="fecha_hora_aviso" required>
+                </div>
+                
+                <div class="form-group" style="flex: 1; min-width: 200px;">
+                    <label for="tiempo_normalizacion" style="color: var(--text-dark);">Tiempo Estimado de Normalización:</label>
+                    <select id="tiempo_normalizacion" name="tiempo_normalizacion" required>
+                        <option value="45m" selected>Menos de 45 minutos</option>
+                        <option value="3h">3 hora</option>
+                        <option value="10h">8-12 horas</option>
+                        <option value="12h+">Más de 12 horas</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-group full-width" style="margin-bottom: 20px;">
+                <label style="color: var(--text-dark);">Gravedad del Aviso:</label>
+                <div class="severity-radio-group">
+                    <label><input type="radio" name="gravedad" value="leve" required> Leve</label>
+                    <label><input type="radio" name="gravedad" value="moderado"> Moderado</label>
+                    <label><input type="radio" name="gravedad" value="grave" checked> Grave</label>
+                </div>
+            </div>
+            
+            <div class="form-group full-width" style="margin-bottom: 20px;">
+                <label for="detalle" style="color: var(--text-dark);">Causa y Detalle:</label>
+                <textarea id="detalle" name="detalle" rows="7" placeholder="Describa la causa, el impacto en el tráfico y cualquier información relevante..." required></textarea>
+            </div>
+            
+            <div class="form-group full-width" style="margin-bottom: 30px;">
+                <label for="recomendaciones" style="color: var(--text-dark);">Recomendaciones:</label>
+                <select id="recomendaciones" name="recomendaciones">
+                    <option value="" disabled selected>Seleccione una recomendación</option>
+                    <option value="rutas_alternativas">Rutas alternativas sugeridas</option>
+                    <option value="desvios_oficiales">Desvíos oficiales o recomendados</option>
+                    <option value="precaucion_luces">Precaución: circular con luces bajas</option>
+                    <option value="precaucion_velocidad">Precaución: reducir velocidad</option>
+                    <option value="precaucion_evitar">Precaución: evitar la zona</option>
+                </select>
+            </div>
+            
+            <button type="submit" class="btn-action full-width-btn" style="background-color: #5abff2;">Registrar Aviso</button>
+        </form>
+    </div>
+</aside>
+        
+    </main>
+
+</body>
+
+</html>
