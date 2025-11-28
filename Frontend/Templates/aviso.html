@@ -267,6 +267,142 @@
             background-color: #004dcc;
         }
 
+    /* Estilos del Modal */
+.modal {
+    display: none; /* Oculto por defecto */
+    position: fixed; /* Posición fija en la pantalla */
+    z-index: 1000; /* Siempre encima de todo */
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto; /* Habilita el scroll si es necesario */
+    background-color: rgba(0,0,0,0.4); /* Fondo semi-transparente oscuro */
+    padding-top: 50px;
+}
+
+.modal-content {
+    background-color: transparent; /* El contenido no tiene fondo propio */
+    margin: 10% auto; /* 10% desde arriba y centrado */
+    padding: 20px;
+    width: 90%; 
+    max-width: 450px; /* Ancho máximo similar a tu imagen */
+    position: relative;
+}
+
+.close-button {
+    color: #f7f7f7;
+    float: left;
+    font-size: 35px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-bottom: 20px;
+    padding: 5px 15px;
+    border-radius: 50%;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.close-button:hover,
+.close-button:focus {
+    color: white;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+/* Estilo de la tarjeta de confirmación (similar a la imagen de referencia) */
+.confirm-card {
+    background-color: #f7f7f7;
+    border: 3px solid #6dd9ff; /* Borde de color azul/cian para el contraste */
+    border-radius: 15px;
+    padding: 30px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.confirm-card p {
+    margin-bottom: 8px;
+    font-size: 1.05em;
+    color: #333;
+    line-height: 1.4;
+}
+
+.confirm-card p span {
+    font-weight: normal;
+    color: #000;
+}
+
+.status-box {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px 0;
+    padding: 10px;
+}
+
+.status-indicator {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-right: 15px;
+}
+
+/* Estilos del indicador de estado */
+.status-box {
+    display: flex;
+    flex-direction: column; /* Apila el título y el valor */
+    align-items: center;
+    justify-content: center;
+    margin: 30px 0;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    border-bottom: 1px solid #ddd;
+}
+
+.status-indicator {
+    height: 25px;
+    width: 25px;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+.status-text {
+    font-size: 1.4rem;
+    font-weight: bold;
+}
+
+/* Nuevas clases para los colores de gravedad */
+.status-indicator.leve {
+    background-color: #5cb85c; /* Verde */
+}
+.status-text.leve {
+    color: #5cb85c; 
+}
+
+.status-indicator.moderado {
+    background-color: #ffc107; /* Amarillo */
+}
+.status-text.moderado {
+    color: #ffc107; 
+}
+
+.status-indicator.grave {
+    background-color: #dc3545; /* Rojo */
+}
+.status-text.grave {
+    color: #dc3545; 
+}
+
+.confirm-btn {
+    width: 100%;
+    margin-top: 20px;
+    background-color: #ff9955 !important; /* Color naranja similar al de la imagen */
+    padding: 12px 20px;
+    font-size: 1.1rem;
+}
+
+.confirm-btn:hover {
+    background-color: #e68a4e !important;
+}
+
     </style>
 </head>
 <body class="bg-light">
@@ -378,8 +514,119 @@
         </form>
     </div>
 </aside>
-        
+
+<div id="confirmacionModal" class="modal">
+    <div class="modal-content">
+        <span class="close-button">&larr;</span>
+        <div class="confirm-card">
+            <h2 style="color: #3878b6; margin-bottom: 20px;">Confirmar Aviso N°<span id="modal-numero">001/25</span></h2>
+            
+            <p><strong style="color: #666;">Tipo de Complicación:</strong> <span id="modal-complicacion"></span></p>
+            <p><strong style="color: #666;">Ubicación:</strong> <span id="modal-ubicacion"></span></p>
+            <p><strong style="color: #666;">Fecha y Hora:</strong> <span id="modal-fecha"></span></p>
+            <p><strong style="color: #666;">Detalle:</strong> <span id="modal-detalle"></span></p>
+
+            <div class="status-box">
+                <h3 style="color: #666; margin: 0; font-size: 1.1rem;">Gravedad del Aviso:</h3> 
+                <div style="display: flex; align-items: center; gap: 10px;">
+                    <span id="modal-status-indicator" class="status-indicator"></span> 
+                    <span id="modal-gravedad-texto" class="status-text"></span>
+                </div>
+            </div>
+            
+            <button id="modal-confirmar" class="btn-action confirm-btn">Enviar Aviso</button>
+        </div>
+    </div>
+</div>
     </main>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const form = document.querySelector('.registration-form form');
+        const modal = document.getElementById('confirmacionModal');
+        const closeButton = document.querySelector('.close-button');
+        const confirmButton = document.getElementById('modal-confirmar');
+        let avisoNumber = 1530; // Contador inicial para el número de aviso
+
+        // Previene el envío del formulario al hacer clic en "Registrar Aviso"
+        form.addEventListener('submit', function(e) {
+            e.preventDefault(); 
+            
+// 1. Obtener los valores del formulario
+        const complicacion = form.querySelector('#complicacion option:checked').textContent;
+        const ubicacionDesde = document.getElementById('ubicacion_desde').value;
+        const ubicacionHasta = document.getElementById('ubicacion_hasta').value;
+        const fechaHora = document.getElementById('fecha_hora_aviso').value;
+        const gravedad = document.querySelector('input[name="gravedad"]:checked').value; // 'leve', 'moderado', o 'grave'
+        const detalle = document.getElementById('detalle').value;
+        
+        // Formatear la ubicación
+        const ubicacionTexto = `${ubicacionDesde} - ${ubicacionHasta}`;
+        
+        // Formatear la fecha y hora
+        const fechaObj = new Date(fechaHora);
+        const fechaFormateada = fechaObj.toLocaleDateString('es-ES', { 
+            year: 'numeric', month: '2-digit', day: '2-digit', 
+            hour: '2-digit', minute: '2-digit' 
+        }).replace(',', ' |');
+
+
+        // 2. Llenar el Modal con los datos
+        document.getElementById('modal-numero').textContent = `${avisoNumber}/25`;
+        document.getElementById('modal-complicacion').textContent = complicacion;
+        document.getElementById('modal-ubicacion').textContent = ubicacionTexto;
+        // La gravedad se elimina de aquí para mostrarse en el Status Box
+        document.getElementById('modal-fecha').textContent = fechaFormateada;
+        document.getElementById('modal-detalle').textContent = detalle;
+
+        // ** LÓGICA PARA EL ESTADO DE GRAVEDAD**
+        const indicador = document.getElementById('modal-status-indicator');
+        const textoGravedad = document.getElementById('modal-gravedad-texto');
+
+        // Limpiar clases previas
+        indicador.className = 'status-indicator';
+        textoGravedad.className = 'status-text';
+
+        // Aplicar la clase y el texto según la gravedad
+        const gravedadMayuscula = gravedad.charAt(0).toUpperCase() + gravedad.slice(1);
+        
+        indicador.classList.add(gravedad); // Añade 'leve', 'moderado' o 'grave'
+        textoGravedad.classList.add(gravedad);
+        textoGravedad.textContent = gravedadMayuscula; // Muestra "Leve", "Moderado" o "Grave"
+
+
+        // 3. Mostrar el Modal
+        modal.style.display = 'block';
+    });
+
+        // Cierra el modal al hacer clic en la flecha de la izquierda
+        closeButton.onclick = function() {
+            modal.style.display = 'none';
+        }
+
+        // Cierra el modal si el usuario hace clic fuera de él
+        window.onclick = function(event) {
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+        
+        // Simular el registro real del aviso al hacer clic en "Enviar Aviso"
+        confirmButton.onclick = function() {
+            // Aquí puedes añadir la lógica real para enviar los datos al servidor (fetch o AJAX)
+            // Por ahora, solo simula el éxito.
+            
+            alert(`Aviso N°${avisoNumber}/25 enviado con éxito!`);
+            avisoNumber++; // Incrementar el contador para el próximo aviso
+            modal.style.display = 'none'; // Ocultar el modal
+            form.reset(); // Opcional: limpiar el formulario original
+            
+            // **Para enviar los datos al backend:**
+            // En un escenario real, aquí se llamaría a la función `form.submit()`
+            // o se enviaría la solicitud mediante `fetch`.
+        }
+    });
+</script>
 
 </body>
 
