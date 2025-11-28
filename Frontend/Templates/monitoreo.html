@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Nexo Andino - Corredor Bioceánico Capricornio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+<style>
+:root {
+            --header-bg: #E8ECF4;
+            --nav-bg: #1168ff;
+            --button-orange: #1168ff;
+            --text-dark: #1168ff;
+            --bg-main: #F0F2F5;
+        }
+
+        body {
+            font-family: sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-main);
+        }
+
+        /* --- Header --- */
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            background-color: var(--header-bg);
+            border-bottom: 1px solid #ccc;
+        }
+
+        .branding {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-image {
+        /* Ajusta el tamaño para que sea similar al icono anterior */
+        width: 50px; /* Ajusta según el tamaño deseado */
+        height: 50px; /* Ajusta según el tamaño deseado */
+        margin-right: 15px;
+        object-fit: contain; /* Asegura que la imagen se vea completa */
+        }
+
+        .branding h1 {
+            margin: 0;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+        }
+
+        .branding p {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .user-controls {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .user-info {
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            font-weight: bold;
+        }
+
+        .btn-logout {
+            background-color: var(--button-orange);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        /* --- Navigation --- */
+        .navbar {
+            background-color: var(--nav-bg);
+            padding: 10px 0;
+        }
+
+        .navbar ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .navbar a {
+            text-decoration: none;
+            color: white;
+            font-weight: bold;
+        }
+
+        .navbar a.active {
+        background-color: rgba(255, 255, 255, 0.2); /* Sutil indicador de la página actual */
+        border-radius: 4px;
+        }
+
+/* --- Estilos para la vista de Seguimiento (Tracking) --- */
+.tracking-container {
+    width: 95%;
+    max-width: 1200px; /* Ancho máximo para centrar el contenido */
+    margin: 20px auto;
+    padding: 0 10px;
+}
+
+/* Tarjeta de información superior */
+.truck-info-card {
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #c7e0ff; 
+    box-shadow: 0 5px 30px rgba(0, 108, 255, 0.1); 
+    margin-bottom: 20px;
+    display: flex; /* Para alinear los datos horizontalmente */
+    flex-wrap: wrap; 
+    gap: 30px; 
+    align-items: center; 
+}
+
+.truck-info-item {
+    font-size: 1.05rem;
+    color: #333;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    font-weight: bold; /* Hace resaltar la información */
+}
+
+/* Sección del mapa */
+.map-section {
+    background-color: #f0f0f0; 
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    height: 400px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #666;
+    margin-bottom: 20px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+/* Contenedor de la cuadrícula de gráficos */
+.charts-grid {
+    display: grid;
+    /* Crea 2 columnas iguales y ajustables */
+    grid-template-columns: repeat(2, 1fr); 
+    gap: 20px;
+    margin-top: 20px;
+}
+
+/* Estilo para cada tarjeta de gráfico */
+.chart-card {
+    background-color: #FFFFFF;
+    padding: 20px;
+    border-radius: 12px;
+    border: 1px solid #c7e0ff;
+    box-shadow: 0 5px 30px rgba(0, 108, 255, 0.1);
+    text-align: center;
+    min-height: 200px; 
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-weight: bold;
+    color: var(--text-dark);
+    font-size: 1.2rem;
+}
+
+</style>
+
+</head>
+<body class="bg-light">
+<header class="header">
+        <div class="branding">
+            <img src="/imagenes/inicio.jpg" alt="Logo Nexo Andino" class="logo-image">
+            <div>
+                <h1>NEXO ANDINO</h1>
+                <p>Corredor Bioceanico Capricornio</p>
+            </div>
+        </div>
+        <div class="user-controls">
+            <div class="user-info">
+                <i class="fa-regular fa-circle-user fa-2x"></i>
+                <span>usuario</span>
+            </div>
+            <button class="btn-logout">Cerrar sesión</button>
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <ul>
+            <li><a href="/Frontend/Templates/monitoreo.html" class="active">Monitoreo</a></li>
+            <li><a href="/Frontend/Templates/registro.html">Registrar camion</a></li>
+            <li><a href="/Frontend/Templates/Infraestructura.html">Infraestructura</a></li>
+            <li><a href="/Frontend/Templates/aviso.html">Enviar aviso</a></li>
+            <li><a href="/Frontend/Templates/somnolencias.html">Reportes Somnolencias</a></li>
+        </ul>
+    </nav>
+<main class="tracking-container">
+    <h2 style="color: var(--text-dark); margin-bottom: 20px;">NEXO - ANDINO - Monitoreo de Camion</h2>
+    <div class="truck-info-card">
+        <div class="truck-info-item">
+            <i class="fa-solid fa-id-card"></i> Patente: <strong>AB 123 CD</strong>
+        </div>
+        <div class="truck-info-item">
+            <i class="fa-solid fa-building"></i> Empresa: <strong>TransNexo S.A.</strong>
+        </div>
+        <div class="truck-info-item">
+            <i class="fa-solid fa-truck"></i> Modelo: <strong>FH 500</strong>
+        </div>
+        <div class="truck-info-item">
+            <i class="fa-solid fa-weight-hanging"></i> Capacidad de Carga: <strong>45 Toneladas</strong>
+        </div>
+    </div>
+
+    <div class="map-section" id="mapa-seguimiento">
+        MAPA QUE VISUALIZA ESE CAMION ESPECIFICO
+    </div>
+
+    <div class="charts-grid">
+        <div class="chart-card">GRÁFICO 1</div>
+        <div class="chart-card">GRÁFICO 2</div>
+        <div class="chart-card">GRÁFICO 3</div>
+        <div class="chart-card">GRÁFICO 4</div>
+    </div>
+</main>
+</body>
+
+</html>
