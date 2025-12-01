@@ -5,11 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Nexo Andino - Monitoreo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
+     integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
+     crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
+     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
+     crossorigin=""></script>
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.2/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
 <style>
 :root {
     /* Variables del Código 1, simplificadas para mantener el color azul */
-    --nav-bg: #1168ff; 
+    --nav-bg: #116899; 
     --button-main: #1168ff;
     --text-dark: #1168ff; 
     --bg-main: #F0F2F5; 
@@ -40,6 +47,7 @@
             justify-content: space-between; 
             align-items: center;
             flex-shrink: 0; 
+height:60px;
         }
         
         .branding {
@@ -181,52 +189,45 @@
             font-weight: bold;
         }
 
-        .map-section {
-            /* ------------------------------------------------ */
-            /* --- CAMBIO CLAVE: IMAGEN DEL MAPA (mapaP.jpg) --- */
-            /* ------------------------------------------------ */
-            background-image: url('/imagenes/mapaP.jpg'); 
-            background-size: cover; 
-            background-position: center;
-            background-repeat: no-repeat;
-            
-            /* Fondo opaco para que corredor.jpg no se vea a través */
-            background-color: #FFFFFF; 
-            
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            height: 400px; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: transparent; /* Oculta el texto de marcador de posición */
-            margin-bottom: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
-        }
+	#map{
+	    height: 400px;
+	    widht: 80%;
+            margin: 0 auto;
+z-index: 0;
+	}
 
-        .charts-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr); 
-            gap: 20px;
-            margin-top: 20px;
-        }
+	.grafico{
+	    height: 300px;
+	    width: 200px;
+	}
 
-        .chart-card {
-            /* Fondo ligeramente transparente para que se vea un poco el corredor.jpg */
-            background-color: rgba(255, 255, 255, 0.95);
-            padding: 20px;
-            border-radius: 12px;
-            border: 1px solid #c7e0ff;
-            box-shadow: 0 5px 30px rgba(0, 108, 255, 0.1);
-            text-align: center;
-            min-height: 200px; 
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-weight: bold;
-            color: var(--text-dark);
-            font-size: 1.2rem;
-        }
+#notificacion {
+cursor: pointer;
+font-weight: bold;
+display: flex;
+gap: 10px;
+align-items: center;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+    background-color: #ff0707;
+    color: white;
+    padding: 5px 20px;
+    border-radius: 5px;
+    opacity: 0; /* invisible por defecto */
+    transition: opacity 1s ease; /* transición suave para fade out */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    font-family: sans-serif;
+pointer-events: none;
+  }
+#notificacion:hover{
+transform: scale(1.005);
+background-color: #ff0909;
+}
+#notificacion i{
+	font-size: 30px;
+}
 
 </style>
 
@@ -235,7 +236,7 @@
 
     <nav class="navbar">
         <div class="branding">
-            <img src="/imagenes/inicio.jpg" alt="Logo Nexo Andino" class="logo-image">
+            <img src="../static/img/inicio.png" alt="Logo Nexo Andino" class="logo-image">
             <div>
                 <h1>NEXO ANDINO</h1>
                 <p>Corredor Bioceanico Capricornio</p>
@@ -243,11 +244,10 @@
         </div>
         
         <ul>
-            <li><a href="/Frontend/Templates/monitoreo.html" class="active"><i class="fa-solid fa-desktop"></i><span>Monitoreo</span></a></li>
-            <li><a href="/Frontend/Templates/registro.html"><i class="fa-solid fa-truck-moving"></i><span>Registrar camion</span></a></li>
-            <li><a href="/Frontend/Templates/Infraestructura.html"><i class="fa-solid fa-city"></i><span>Infraestructura</span></a></li>
-            <li><a href="/Frontend/Templates/aviso.html"><i class="fa-solid fa-triangle-exclamation"></i><span>Enviar aviso</span></a></li>
-            <li><a href="/Frontend/Templates/somnolencias.html"><i class="fa-solid fa-eye"></i><span>Reportes Somnolencias</span></a></li>
+            <li><a href="home.html" class="active"><i class="fa-solid fa-desktop"></i><span>Monitoreo</span></a></li>
+            <li><a href="registro.html"><i class="fa-solid fa-truck-moving"></i><span>Registrar camion</span></a></li>
+            <li><a href="aviso.html"><i class="fa-solid fa-triangle-exclamation"></i><span>Enviar aviso</span></a></li>
+            <li><a href="somnolencias.html"><i class="fa-solid fa-eye"></i><span>Somnolencias</span></a></li>
         </ul>
 
         <div class="user-controls">
@@ -261,66 +261,191 @@
     <h2 style="color: black; margin-bottom: 20px;">NEXO - ANDINO - Monitoreo de Camion</h2>
     <div class="truck-info-card">
         <div class="truck-info-item">
-            <i class="fa-solid fa-id-card"></i> Patente: <strong>AB 123 CD</strong>
+            <i class="fa-solid fa-id-card"></i> Patente: <strong id="patente"></strong>
         </div>
         <div class="truck-info-item">
-            <i class="fa-solid fa-building"></i> Empresa: <strong>TransNexo S.A.</strong>
+            <i class="fa-solid fa-building"></i> Empresa: <strong id="empresa"></strong>
         </div>
         <div class="truck-info-item">
-            <i class="fa-solid fa-truck"></i> Modelo: <strong>FH 500</strong>
+            <i class="fa-solid fa-truck"></i> Modelo: <strong id="modelo"></strong>
         </div>
         <div class="truck-info-item">
-            <i class="fa-solid fa-weight-hanging"></i> Capacidad de Carga: <strong>45 Toneladas</strong>
+            <i class="fa-solid fa-weight-hanging"></i> Capacidad de Carga: <strong id="carga"></strong>
         </div>
     </div>
 
-    <div class="map-section" id="mapa-seguimiento">
-        MAPA QUE VISUALIZA ESE CAMION ESPECIFICO
-    </div>
-
-    <div class="charts-grid">
-        <div class="chart-card"><canvas id="chart1"></canvas></div>
-        <div class="chart-card"><canvas id="chart2"></canvas></div>
-        <div class="chart-card"><canvas id="chart3"></canvas></div>
-        <div class="chart-card"><canvas id="chart4"></canvas></div>
-
-    </div>
+    <div id="map"></div>
+    <canvas id="grafico1" class="grafico"></canvas>
+    <canvas id="grafico2" class="grafico"></canvas>
+    <canvas id="grafico3" class="grafico"></canvas>
+    <canvas id="grafico4" class="grafico"></canvas>
+<div id="notificacion">
+		<i class="fa-solid fa-triangle-exclamation"></i>
+	        <p>Aviso de somnolencia</p>
+	    </div>
 </main>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
-document.addEventListener("DOMContentLoaded", () => {
 
-    const makeChart = (id, label, color, min=0, max=100) => {
-        const ctx = document.getElementById(id);
-        new Chart(ctx, {
-            type: "line",
-            data: {
-                labels: ["1","2","3","4","5","6","7","8","9","10"],
-                datasets: [{
-                    label: label,
-                    data: Array.from({length: 10}, () => Math.floor(Math.random()*(max-min)+min)),
-                    borderColor: color,
-                    backgroundColor: color + "33",
-                    borderWidth: 2,
-                    tension: 0.3
-                }]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false
-            }
+var map;
+var marker;
+var camion;
+
+var patente = new URLSearchParams(window.location.search).get('p');
+console.log(patente);
+
+async function camionRequest(){
+	const url = "http://localhost:8080/camiones/"+patente;
+	const response = await fetch(url);
+	return response.json();
+}
+
+async function posicionRequest(){
+	const url = "http://localhost:8080/ultimasPos/"+patente;
+	const response = await fetch(url);
+	return response.json();
+}
+
+async function sensorRequest(){
+	const url = "http://localhost:8080/sensores/camiones/"+patente;
+	const response = await fetch(url);
+	return response.json();
+}
+
+async function buscarCamion(){
+	camion = await camionRequest();
+	posicionCamion = await posicionRequest();
+	document.getElementById("patente").innerText = camion.patente;
+    	document.getElementById("empresa").innerText = camion.empresa;
+    	document.getElementById("modelo").innerText = camion.modelo;
+    	document.getElementById("carga").innerText = camion.capacidad_carga;
+	map = L.map('map').setView([posicionCamion.latitud, posicionCamion.longitud], 16);
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    maxZoom: 19,
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+}).addTo(map);
+	marker = L.marker([posicionCamion.latitud, posicionCamion.longitud]).addTo(map)
+	    .bindPopup(
+                    `<b>Patente:</b> ${posicionCamion.patente}<br>
+		     <b>Lat:</b> ${posicionCamion.latitud}<br>
+		     <b>Lon:</b> ${posicionCamion.longitud}`
+                );	
+}
+
+async function actualizarPosicion(){
+	camion = await posicionRequest();
+	map.setView([camion.latitud, camion.longitud], 16);
+	marker.setLatLng([camion.latitud, camion.longitud]);
+}
+
+var grafico1, grafico2, grafico3, grafico4;
+
+async function iniciarGraficos(){
+	lecturas = await sensorRequest();
+	const temp = lecturas.map(l => l.temperatura_motor);
+	const rpm = lecturas.map(l => l.rpm_motor);
+	const vib = lecturas.map(l => l.vibracion_motor);
+	const pre = lecturas.map(l => l.presion_aceite);
+	const labels = lecturas.map(l => l.fecha_hora.split('T')[1].split('.')[0]);
+	console.log(temp);
+	console.log(rpm);
+	console.log(vib);
+	console.log(pre);
+	const data1 = {
+		labels: labels,
+  		datasets: [{
+    			label: 'Temperatura del motor',
+    			data: temp,
+    			fill: false,
+    			borderColor: 'rgb(75, 192, 192)'
+  		}]
+	};
+	const data2 = {
+		labels: labels,
+  		datasets: [{
+    			label: 'RPM del motor',
+    			data: rpm,
+    			fill: false,
+    			borderColor: 'rgb(75, 192, 192)'
+  		}]
+	};
+	const data3 = {
+		labels: labels,
+  		datasets: [{
+    			label: 'Vibracion del motor',
+    			data: vib,
+    			fill: false,
+    			borderColor: 'rgb(75, 192, 192)'
+  		}]
+	};
+	const data4 = {
+		labels: labels,
+  		datasets: [{
+    			label: 'Presion de aceite',
+    			data: pre,
+    			fill: false,
+    			borderColor: 'rgb(75, 192, 192)'
+  		}]
+	};
+	const config1 = {type: 'line', data: data1};
+	const config2 = {type: 'line', data: data2};
+	const config3 = {type: 'line', data: data3};
+	const config4 = {type: 'line', data: data4};
+	const ctx1 = document.getElementById('grafico1');
+	const ctx2 = document.getElementById('grafico2');
+	const ctx3 = document.getElementById('grafico3');
+	const ctx4 = document.getElementById('grafico4');
+	grafico1 = new Chart(ctx1, config1);
+	grafico2 = new Chart(ctx2, config2);
+	grafico3 = new Chart(ctx3, config3);
+	grafico4 = new Chart(ctx4, config4);
+}
+
+async function actualizarGraficos(){
+	lecturas = await sensorRequest();
+	const temp = lecturas.map(l => l.temperatura_motor);
+	const rpm = lecturas.map(l => l.rpm_motor);
+	const vib = lecturas.map(l => l.vibracion_motor);
+	const pre = lecturas.map(l => l.presion_aceite);
+	const labels = lecturas.map(l => l.fecha_hora.split('T')[1].split('.')[0]);
+	grafico1.data.labels = labels;
+	grafico2.data.labels = labels;
+	grafico3.data.labels = labels;
+	grafico4.data.labels = labels;
+	grafico1.data.datasets[0].data = temp;
+	grafico2.data.datasets[0].data = rpm;
+	grafico3.data.datasets[0].data = vib;
+	grafico4.data.datasets[0].data = pre;
+	grafico1.update('none');
+	grafico2.update('none');
+	grafico3.update('none');
+	grafico4.update('none');
+}
+
+var socket = new SockJS('http://localhost:8080/somnolenciaAlert');
+    var stompClient = Stomp.over(socket);
+    stompClient.connect({}, function(frame) {
+        stompClient.subscribe('/topic/somnolenciaAlert', function(mensaje){
+            mostrarNotificacion()
         });
-    };
+    });
 
-    makeChart("chart1", "Velocidad (km/h)", "#1168ff", 20, 110);
-    makeChart("chart2", "RPM", "#ff5733", 400, 1500);
-    makeChart("chart3", "Temperatura Motor", "#ffc300", 60, 120);
-    makeChart("chart4", "Vibración (m/s²)", "#28a745", 0, 20);
+function mostrarNotificacion() {
+      var div = document.getElementById('notificacion');
+      div.style.opacity = 1;
+div.style.pointerEvents = 'auto';
+      setTimeout(function() {
+          div.style.opacity = 0;
+div.style.pointerEvents = 'none';
+      }, 5000);
+  }
 
+document.addEventListener("DOMContentLoaded", () => {
+	buscarCamion();
+	iniciarGraficos();
+	setInterval(actualizarPosicion, 10000);
+	setInterval(actualizarGraficos, 5000);
 });
 </script>
-
-
 </body>
-
 </html>

@@ -10,12 +10,13 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
-
+<script src="https://cdn.jsdelivr.net/npm/sockjs-client@1.5.2/dist/sockjs.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
 <style>
 /* --- Variables de Estilo Unificado --- */
 :root {
     /* Variables usadas en la navegación unificada */
-    --nav-bg: #1168ff; /* Azul principal */
+    --nav-bg: #116899;
     --button-main: #1168ff;
     --text-dark: #1168ff;
     --bg-main: #F0F2F5;
@@ -47,6 +48,7 @@ body {
     justify-content: space-between; 
     align-items: center;
     flex-shrink: 0; 
+    height:70px;
     margin-bottom: 0; /* Eliminar el margen inferior para que se pegue al borde */
 }
 
@@ -216,24 +218,6 @@ body {
     background-color: #28a745; 
 }
 
-/* Estilo de la Notificación (Alerta) */
-#notificacion {
-    background-color: #f8d7da; 
-    color: #721c24; 
-    border: 1px solid #f5c6cb;
-    padding: 15px;
-    border-radius: 8px;
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 20px;
-    opacity: 0; 
-    transition: transform 300ms ease, opacity 300ms ease;
-}
-
-#notificacion.showing { transform: translateY(0); opacity: 1; }
-#notificacion.hiding { transform: translateY(-8px); opacity: 0; }
-#notificacion.d-none { display: none !important; }
-
 /* Estilo del Encabezado de la Tarjeta */
 .card {
     /* Mantenido: Añade transparencia para ver el fondo */
@@ -298,25 +282,32 @@ body {
     cursor: default;
 }
 
-/* Botón de simulación */
-.btn-simular {
-    background-color: transparent;
-    color: var(--button-main);
-    border: 1px solid var(--button-main);
-    padding: 8px 15px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-weight: bold;
-    transition: background-color 0.3s, color 0.3s;
-}
-
-.btn-simular:hover:not(:disabled) {
-    background-color: var(--button-main);
+#notificacion {
+cursor: pointer;
+font-weight: bold;
+display: flex;
+gap: 10px;
+align-items: center;
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    z-index: 99;
+    background-color: #ff0707;
     color: white;
+    padding: 5px 20px;
+    border-radius: 5px;
+    opacity: 0; /* invisible por defecto */
+    transition: opacity 1s ease; /* transición suave para fade out */
+    box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+    font-family: sans-serif;
+pointer-events: none;
+  }
+#notificacion:hover{
+transform: scale(1.005);
+background-color: #ff0909;
 }
-.btn-simular:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
+#notificacion i{
+	font-size: 30px;
 }
 
 </style>
@@ -325,7 +316,7 @@ body {
 
     <nav class="navbar">
         <div class="branding">
-            <img src="/imagenes/inicio.jpg" alt="Logo Nexo Andino" class="logo-image">
+            <img src="../static/img/inicio.png" alt="Logo Nexo Andino" class="logo-image">
             <div>
                 <h1>NEXO ANDINO</h1>
                 <p>Corredor Bioceanico Capricornio</p>
@@ -333,11 +324,10 @@ body {
         </div>
         
         <ul>
-            <li><a href="/Frontend/Templates/monitoreo.html"><i class="fa-solid fa-desktop"></i><span>Monitoreo</span></a></li>
-            <li><a href="/Frontend/Templates/registro.html"><i class="fa-solid fa-truck-moving"></i><span>Registrar camion</span></a></li>
-            <li><a href="/Frontend/Templates/Infraestructura.html"><i class="fa-solid fa-city"></i><span>Infraestructura</span></a></li>
-            <li><a href="/Frontend/Templates/aviso.html"><i class="fa-solid fa-triangle-exclamation"></i><span>Enviar aviso</span></a></li>
-            <li><a href="/Frontend/Templates/somnolencias.html" class="active"><i class="fa-solid fa-eye"></i><span>Reportes Somnolencias</span></a></li>
+            <li><a href="home.html"><i class="fa-solid fa-desktop"></i><span>Monitoreo</span></a></li>
+            <li><a href="registro.html"><i class="fa-solid fa-truck-moving"></i><span>Registrar camion</span></a></li>
+            <li><a href="aviso.html"><i class="fa-solid fa-triangle-exclamation"></i><span>Enviar aviso</span></a></li>
+            <li><a href="somnolencias.html" class="active"><i class="fa-solid fa-eye"></i><span>Somnolencias</span></a></li>
         </ul>
 
         <div class="user-controls">
@@ -354,14 +344,8 @@ body {
                 <small class="text-muted">Eventos detectados en tiempo real</small>
             </div>
             <div class="badge-panel">
-                <span class="badge bg-success">Activos <span id="badge-activos" class="fw-semibold">0</span></span>
                 <span class="badge">Total <span id="badge-total" class="fw-semibold">0</span></span>
             </div>
-        </div>
-
-        <div id="notificacion" class="alert d-none" role="alert">
-            <i class="bi bi-exclamation-triangle-fill me-2"></i>
-            <span id="notificacion-text">Alerta de somnolencia</span>
         </div>
 
         <div class="card">
@@ -373,11 +357,6 @@ body {
                             <div class="text-muted small">Últimos eventos</div>
                             <div class="fw-semibold">Registro en tabla</div>
                         </div>
-                    </div>
-                    <div>
-                        <button id="btn-simular" class="btn-simular" disabled>
-                            <i class="bi bi-play-fill"></i> Simular
-                        </button>
                     </div>
                 </div>
 
@@ -397,10 +376,78 @@ body {
             </div>
         </div>
     </div>
+<div id="notificacion">
+		<i class="fa-solid fa-triangle-exclamation"></i>
+	        <p>Aviso de somnolencia</p>
+	    </div>
 
     <script src="../static/js/somnolencias.js"></script> 
     <script src="https://cdn.jsdelivr.net/npm/sockjs-client@1/dist/sockjs.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/stompjs@2.3.3/lib/stomp.min.js"></script>
 
 </body>
+<script>
+var socket = new SockJS('http://localhost:8080/somnolenciaAlert');
+    var stompClient = Stomp.over(socket);
+    stompClient.connect({}, function(frame) {
+        stompClient.subscribe('/topic/somnolenciaAlert', function(mensaje){
+            mostrarNotificacion()
+        });
+    });
+
+function mostrarNotificacion() {
+      var div = document.getElementById('notificacion');
+      div.style.opacity = 1;
+div.style.pointerEvents = 'auto';
+      setTimeout(function() {
+          div.style.opacity = 0;
+div.style.pointerEvents = 'none';
+      }, 5000);
+  }
+document.addEventListener("DOMContentLoaded", () => {
+
+    const tabla = document.getElementById("tabla-somnolencias");
+    const badgeActivos = document.getElementById("badge-activos");
+    const badgeTotal = document.getElementById("badge-total");
+
+    cargarSomnolencias();
+
+    async function cargarSomnolencias() {
+        try {
+            const url = "http://localhost:8080/somnolencias"; // ← tu endpoint
+            const response = await fetch(url);
+            const data = await response.json();
+
+            // Limpia la tabla
+            tabla.innerHTML = "";
+
+            // Llena la tabla
+            data.forEach(reg => {
+                const fila = document.createElement("tr");
+
+                fila.innerHTML = `
+                    <td>${reg.id}</td>
+                    <td>${reg.patente}</td>
+                    <td>${formatearFecha(reg.fecha_hora)}</td>
+                `;
+
+                tabla.appendChild(fila);
+            });
+
+            // Actualizar counters
+            badgeTotal.textContent = data.length;
+
+        } catch (error) {
+            console.error("Error al cargar somnolencias:", error);
+        }
+    }
+
+    function formatearFecha(fecha) {
+        return new Date(fecha).toLocaleString("es-AR", {
+            dateStyle: "short",
+            timeStyle: "short"
+        });
+    }
+});
+</script>
 </html>
